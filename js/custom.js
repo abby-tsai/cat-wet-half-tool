@@ -192,10 +192,7 @@ const App = {
   methods: {
 
     reset() {
-      // 關閉結果
-
-      // input 裡面的值都歸零
-
+      window.location.reload();
     },
 
     // 貓咪每日營養
