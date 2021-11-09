@@ -14,16 +14,15 @@ const App = {
       isOpenHalfWetFood: false,
 
       // 勾選貓咪目前狀態
-      cat_kitten_Status: ["1歲以下幼貓"],
-      cat_normal_Status: ["成貓 - 活動量小", "成貓 - 活動量大", "成貓 - 需要減重", "成貓 - 過瘦", "成貓 - 已結紮", "成貓 - 未結紮"],
-      cat_old_Status: ["7歲以上中年貓", "11歲以上高齡貓"],
-      cat_mother_Status: ["母貓 - 懷孕期", "母貓 - 哺乳期"],
+      cat_kitten_Status: ["10週大", "20週大", "30週大", "40週大"],
+      cat_normal_Status: ["活動力低(未結紮)", "活動力低(已結紮)", "活動力高(未結紮)", "活動力高(已結紮)"],
+      cat_mother_Status: ["懷孕期", "哺乳期"],
 
       // 貓咪個資
       cat_Info: {
         weight: '',
         status: '',
-        statusDER: 0,
+        kg_kcal: 0,
 
         daliyKcal: 0,
         daliyProtein: {
@@ -36,7 +35,8 @@ const App = {
         },
         daliyWater: {
           min: 0,
-          max: 0
+          max: 0,
+          over: 0,
         },
       },
 
@@ -153,7 +153,7 @@ const App = {
         // 罐頭每日幾罐的選項
         canDaliy_choose: [],
         // 選擇幾個罐頭
-        choose_Index: '',
+        canDaliyNumber: '',
 
         // 飼料 g 克數
         feed_g: 0,
@@ -204,43 +204,40 @@ const App = {
         this.isOpenCat_Info = true;
 
         switch (this.cat_Info.status) {
-          case '1歲以下幼貓':
-            this.cat_Info.statusDER = 2.5;
+          case '10週大':
+            this.cat_Info.kg_kcal = 248;
             break;
-          case '成貓 - 活動量小':
-            this.cat_Info.statusDER = 0.9;
+          case '20週大':
+            this.cat_Info.kg_kcal = 130;
             break;
-          case '成貓 - 活動量大':
-            this.cat_Info.statusDER = 1.5;
+          case '30週大':
+            this.cat_Info.kg_kcal = 99;
             break;
-          case '成貓 - 需要減重':
-            this.cat_Info.statusDER = 0.9;
+          case '40週大':
+            this.cat_Info.kg_kcal = 80;
             break;
-          case '成貓 - 過瘦':
-            this.cat_Info.statusDER = 1.5;
+          case '活動力低(未結紮)':
+            this.cat_Info.kg_kcal = 40;
             break;
-          case '成貓 - 已結紮':
-            this.cat_Info.statusDER = 1.3;
+          case '活動力低(已結紮)':
+            this.cat_Info.kg_kcal = 40 * 0.7;
             break;
-          case '成貓 - 未結紮':
-            this.cat_Info.statusDER = 1.5;
+          case '活動力高(未結紮)':
+            this.cat_Info.kg_kcal = 55;
             break;
-          case '7歲以上中年貓':
-            this.cat_Info.statusDER = 1.25;
+          case '活動力高(已結紮)':
+            this.cat_Info.kg_kcal = 55 * 0.7;
             break;
-          case '11歲以上高齡貓':
-            this.cat_Info.statusDER = 1.35;
+          case '懷孕期':
+            this.cat_Info.kg_kcal = 99;
             break;
-          case '母貓 - 懷孕期':
-            this.cat_Info.statusDER = 1.8;
-            break;
-          case '母貓 - 哺乳期':
-            this.cat_Info.statusDER = 2;
+          case '哺乳期':
+            this.cat_Info.kg_kcal = 221;
             break;
         }
 
         // 每日熱量
-        this.cat_Info.daliyKcal = (70 * Math.sqrt(Math.sqrt(Math.pow(this.cat_Info.weight, 3))) * this.cat_Info.statusDER).toFixed(0);
+        this.cat_Info.daliyKcal = (this.cat_Info.weight * this.cat_Info.kg_kcal).toFixed(0);
         // 每日蛋白質克數
         this.cat_Info.daliyProtein.min = ((this.cat_Info.daliyKcal * 0.46) / 3.5).toFixed(0);
         this.cat_Info.daliyProtein.max = ((this.cat_Info.daliyKcal * 0.6) / 3.5).toFixed(0);
@@ -248,8 +245,9 @@ const App = {
         this.cat_Info.daliyFat.min = ((this.cat_Info.daliyKcal * 0.09) / 8.5).toFixed(0);
         this.cat_Info.daliyFat.max = ((this.cat_Info.daliyKcal * 0.5) / 8.5).toFixed(0);
         // 每日飲水量
-        this.cat_Info.daliyWater.min = this.cat_Info.weight * 40;
-        this.cat_Info.daliyWater.max = this.cat_Info.weight * 60;
+        this.cat_Info.daliyWater.min = (this.cat_Info.weight * 40).toFixed(0);
+        this.cat_Info.daliyWater.max = (this.cat_Info.weight * 60).toFixed(0);
+        this.cat_Info.daliyWater.over = (this.cat_Info.daliyWater.min * 2).toFixed(0)
       } else {
         alert('請填寫第1步驟的所有欄位');
       }
@@ -388,11 +386,11 @@ const App = {
 
     // 全濕食配方 - 每日需吃幾顆罐頭、各營養 g
     allWetFood_result() {
-      this.allWetFood_Info.items = (this.cat_Info.daliyKcal / this.can_Info.Kcal).toFixed(1);
+      this.allWetFood_Info.items = Number((this.cat_Info.daliyKcal / this.can_Info.Kcal).toFixed(1));
 
-      this.allWetFood_Info.Protein.number = parseInt((this.allWetFood_Info.items * this.can_Info.Protein_g).toFixed(0));
-      this.allWetFood_Info.Fat.number = parseInt((this.allWetFood_Info.items * this.can_Info.Fat_g).toFixed(0));
-      this.allWetFood_Info.Water.number = parseInt((this.allWetFood_Info.items * this.can_Info.Water_g).toFixed(0));
+      this.allWetFood_Info.Protein.number = Number((this.allWetFood_Info.items * this.can_Info.Protein_g).toFixed(0));
+      this.allWetFood_Info.Fat.number = Number((this.allWetFood_Info.items * this.can_Info.Fat_g).toFixed(0));
+      this.allWetFood_Info.Water.number = Number((this.allWetFood_Info.items * this.can_Info.Water_g).toFixed(0));
     },
 
     // 判斷開啟 全濕食配方
@@ -468,7 +466,7 @@ const App = {
         this.allWetFood_Info.Water.colorClass = [];
         this.allWetFood_Info.Water.colorClass.push(this.can_dmd.colors[2]);
       };
-      if (this.allWetFood_Info.Water.number > this.cat_Info.daliyWater.max) {
+      if (this.allWetFood_Info.Water.number > this.cat_Info.daliyWater.over) {
         this.allWetFood_Info.Water.result = '過高';
         this.allWetFood_Info.Water.isLess = false;
         this.allWetFood_Info.Water.isOver = true;
@@ -600,29 +598,30 @@ const App = {
 
     // 半濕食 - 列出罐頭每日幾罐的選項
     halfWetFood_canDaliyNumber() {
-      var str = "";
-      for (let i = 0; i < (this.allWetFood_Info.items - 1); i++) {
-        str = '罐頭 * ' + (i + 1) + " + 飼料";
-        this.halfWetFood_Info.canDaliy_choose.push(str);
-      }
+      let choose = Array.apply(null, { length: this.allWetFood_Info.items + 1 }).map(Number.call, Number)
+      choose.forEach((i) => {
+        if(i < this.allWetFood_Info.items){
+          this.halfWetFood_Info.canDaliy_choose.push(i, (i + 0.5));
+        }
+      })
     },
 
     // 半濕食 - 計算飼料還需要幾克
     math_feed_g(can_item) {
-      this.halfWetFood_Info.feed_g = ((this.cat_Info.daliyKcal - ((can_item + 1) * this.can_Info.Kcal)) / (this.feed_Nutrition.feed_1KG_Kcal / 1000)).toFixed(0);
+      this.halfWetFood_Info.feed_g = ((this.cat_Info.daliyKcal - ((can_item) * this.can_Info.Kcal)) / (this.feed_Nutrition.feed_1KG_Kcal / 1000)).toFixed(0);
 
       // 算出飼料幾克之後，再執行以下
       this.feed_Nutrition_g();
 
       // N個罐頭的各營養 g
-      this.halfWetFood_Info.Protein.can_Protein_g = parseInt(((can_item + 1) * this.can_Info.Protein_g).toFixed(0));
-      this.halfWetFood_Info.Fat.can_Fat_g = parseInt(((can_item + 1) * this.can_Info.Fat_g).toFixed(0));
-      this.halfWetFood_Info.Water.can_Water_g = parseInt(((can_item + 1) * this.can_Info.Water_g).toFixed(0));
+      this.halfWetFood_Info.Protein.can_Protein_g = Number(((can_item + 1) * this.can_Info.Protein_g).toFixed(0));
+      this.halfWetFood_Info.Fat.can_Fat_g = Number(((can_item + 1) * this.can_Info.Fat_g).toFixed(0));
+      this.halfWetFood_Info.Water.can_Water_g = Number(((can_item + 1) * this.can_Info.Water_g).toFixed(0));
 
       // 半濕食配方 - 每日半濕食各營養 g
-      this.halfWetFood_Info.Protein.number = parseInt((this.halfWetFood_Info.Protein.can_Protein_g + this.feed_Info.Protein_g).toFixed(0));
-      this.halfWetFood_Info.Fat.number = parseInt((this.halfWetFood_Info.Fat.can_Fat_g + this.feed_Info.Fat_g).toFixed(0));
-      this.halfWetFood_Info.Water.number = parseInt((this.halfWetFood_Info.Water.can_Water_g + this.feed_Info.Water_g).toFixed(0));
+      this.halfWetFood_Info.Protein.number = Number((this.halfWetFood_Info.Protein.can_Protein_g + this.feed_Info.Protein_g).toFixed(0));
+      this.halfWetFood_Info.Fat.number = Number((this.halfWetFood_Info.Fat.can_Fat_g + this.feed_Info.Fat_g).toFixed(0));
+      this.halfWetFood_Info.Water.number = Number((this.halfWetFood_Info.Water.can_Water_g + this.feed_Info.Water_g).toFixed(0));
 
       // 算出半濕食各營養 g，再執行以下
       this.halfWetFood_compare_cat_result();
@@ -632,11 +631,11 @@ const App = {
     // 飼料 - 各營養 g
     feed_Nutrition_g() {
       // 蛋白質 g
-      this.feed_Info.Protein_g = parseInt((this.halfWetFood_Info.feed_g * this.feed_Nutrition.Protein_p / 100).toFixed(0));
+      this.feed_Info.Protein_g = Number((this.halfWetFood_Info.feed_g * this.feed_Nutrition.Protein_p / 100).toFixed(0));
       // 脂肪 g
-      this.feed_Info.Fat_g = parseInt((this.halfWetFood_Info.feed_g * this.feed_Nutrition.Fat_p / 100).toFixed(0));
+      this.feed_Info.Fat_g = Number((this.halfWetFood_Info.feed_g * this.feed_Nutrition.Fat_p / 100).toFixed(0));
       // 水分 g
-      this.feed_Info.Water_g = parseInt((this.halfWetFood_Info.feed_g * this.feed_Nutrition.Water_p / 100).toFixed(0));
+      this.feed_Info.Water_g = Number((this.halfWetFood_Info.feed_g * this.feed_Nutrition.Water_p / 100).toFixed(0));
     },
 
     // 判斷 半濕食與貓咪每日營養 結論
@@ -703,7 +702,7 @@ const App = {
         this.halfWetFood_Info.Water.colorClass = [];
         this.halfWetFood_Info.Water.colorClass.push(this.feed_dmd.colors[2]);
       };
-      if (this.halfWetFood_Info.Water.number > this.cat_Info.daliyWater.max) {
+      if (this.halfWetFood_Info.Water.number > this.cat_Info.daliyWater.over) {
         this.halfWetFood_Info.Water.result = '過高';
         this.halfWetFood_Info.Water.isLess = false;
         this.halfWetFood_Info.Water.isOver = true;

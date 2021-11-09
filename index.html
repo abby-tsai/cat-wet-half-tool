@@ -35,8 +35,6 @@
             </p>
           </div>
 
-          <form action="">
-
             <p class="font-size-17 mb-1" style="font-weight: 600;">
               請輸入貓咪的體重：
             </p>
@@ -46,9 +44,8 @@
                 <div class="input-box mb-1">
                   <input type="text" placeholder="0" v-model="cat_Info.weight">
                   <span class="text-unit">kg</span>
-
-                  <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
-                    過瘦貓，請輸入理想體重。</span>
+                  <!-- <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
+                    過瘦貓，請輸入理想體重。</span> -->
                 </div>
               </div>
             </div>
@@ -57,6 +54,7 @@
 
             <div class="row mb-1">
               <div class="Block--12">
+                <p class="mb-0" style="font-weight: 600;">幼貓</p>
                 <div class="radio-box" v-for="(kitten, key) in cat_kitten_Status" :key="'kitten' + key">
                   <input type="radio" :id="'kitten' + key" name="cat_Status" :value="kitten" v-model="cat_Info.status">
                   <label :for="'kitten' + key">{{ kitten }}</label>
@@ -66,6 +64,7 @@
 
             <div class="row mb-1">
               <div class="Block--12">
+                <p class="mb-0" style="font-weight: 600;">成貓</p>
                 <div class="radio-box" v-for="(normal, key) in cat_normal_Status" :key="'normal' + key">
                   <input type="radio" :id="'normal' + key" name="cat_Status" :value="normal" v-model="cat_Info.status">
                   <label :for="'normal' + key">{{ normal }}</label>
@@ -75,15 +74,7 @@
 
             <div class="row mb-1">
               <div class="Block--12">
-                <div class="radio-box" v-for="(old, key) in cat_old_Status" :key="'old' + key">
-                  <input type="radio" :id="'old' + key" name="cat_Status" :value="old" v-model="cat_Info.status">
-                  <label :for="'old' + key">{{ old }}</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mb-1">
-              <div class="Block--12">
+                <p class="mb-0" style="font-weight: 600;">母貓</p>
                 <div class="radio-box" v-for="(mother, key) in cat_mother_Status" :key="'mother' + key">
                   <input type="radio" :id="'mother' + key" name="cat_Status" :value="mother" v-model="cat_Info.status">
                   <label :for="'mother' + key">{{ mother }}</label>
@@ -96,8 +87,6 @@
                 <button class="btn-base-outline" type="button" @click.prevent="cat_daliy_info">開始計算！</button>
               </div>
             </div>
-          </form>
-
 
 
           <!-- <div class="step_1_block" style="visibility: hidden; height: 0;"> -->
@@ -468,6 +457,10 @@
               <i class="icon fas fa-exclamation-triangle"></i>
               每日的脂肪攝取過高，不建議作為主食！
             </div>
+            <div class="warning-text red" v-if="allWetFood_Info.Water.isOver">
+              <i class="icon fas fa-exclamation-triangle"></i>
+              每日的水分攝取過高，請注意！
+            </div>
 
             <div class="pt-1 pb-2"></div>
 
@@ -494,9 +487,8 @@
               <div class="Block--12">
                 <div class="radio-box" v-for="(canDaliyNumber, key) in halfWetFood_Info.canDaliy_choose"
                   :key="'canDaliyNumber' + key">
-                  <input type="radio" :id="'canDaliyNumber' + key" name="halfWetFood_canDaliy" :value="key + 1"
-                    v-model="halfWetFood_Info.choose_Index" @click="math_feed_g(key)">
-                  <label :for="'canDaliyNumber' + key">{{ canDaliyNumber }}</label>
+                  <input type="radio" :id="'canDaliyNumber' + key" name="halfWetFood_canDaliy" :value="canDaliyNumber" v-model="halfWetFood_Info.canDaliyNumber" @click="math_feed_g(canDaliyNumber)">
+                  <label :for="'canDaliyNumber' + key">罐頭 {{ canDaliyNumber }} 個</label>
                 </div>
               </div>
             </div>
@@ -507,7 +499,7 @@
               每日需吃
               <span class="px-1 font-size-18"
                 style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                halfWetFood_Info.choose_Index }}</span>顆罐頭 + <span class="px-1 font-size-18"
+                halfWetFood_Info.canDaliyNumber }}</span>個罐頭 + <span class="px-1 font-size-18"
                 style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
                 halfWetFood_Info.feed_g
                 }}</span> g 飼料<br>才能達到貓咪每日所需的熱量。
@@ -564,6 +556,10 @@
             <div class="warning-text red" v-if="halfWetFood_Info.Fat.isOver">
               <i class="icon fas fa-exclamation-triangle"></i>
               每日的脂肪攝取過高，不建議作為主食！
+            </div>
+            <div class="warning-text red" v-if="halfWetFood_Info.Water.isOver">
+              <i class="icon fas fa-exclamation-triangle"></i>
+              每日的水分攝取過高，請注意！
             </div>
 
             <div class="pt-1 pb-2"></div>
