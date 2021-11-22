@@ -5962,7 +5962,7 @@ ul,
 start. header*/
 ::-webkit-scrollbar {
   width: 4px;
-  background: #fff;
+  background: #eee;
   z-index: 10;
 }
 
@@ -5982,7 +5982,7 @@ start. header*/
 
 ::-webkit-scrollbar-thumb {
   border-radius: 2px;
-  background: #000;
+  background: #00B79E;
 }
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
@@ -6186,15 +6186,15 @@ header .subTitle {
   border: 2px solid #00B79E;
   color: #00B79E;
   width: 100%;
-  height: 41px;
+  height: 45px;
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
-  line-height: 37px;
+  line-height: 41px;
   display: block;
 }
 
@@ -6279,7 +6279,7 @@ start. content*/
 .step_3_section,
 .step_4_section,
 .step_5_section {
-  padding: 60px 21px;
+  padding: 35px 21px;
 }
 
 .step_1_section {

@@ -195,6 +195,13 @@ const App = {
       window.location.reload();
     },
 
+    // 計算所有
+    mathAll() {
+      this.cat_daliy_info();
+      this.math_can();
+      this.math_feed();
+    },
+
     // 貓咪每日營養
     cat_daliy_info() {
 
@@ -598,12 +605,13 @@ const App = {
 
     // 半濕食 - 列出罐頭每日幾罐的選項
     halfWetFood_canDaliyNumber() {
-      let choose = Array.apply(null, { length: this.allWetFood_Info.items + 1 }).map(Number.call, Number)
+      let choose = Array.apply(null, { length: this.allWetFood_Info.items + 1 }).map(Number.call, Number);
       choose.forEach((i) => {
-        if(i < this.allWetFood_Info.items){
+        if (i < this.allWetFood_Info.items) {
           this.halfWetFood_Info.canDaliy_choose.push(i, (i + 0.5));
         }
-      })
+      });
+      this.halfWetFood_Info.canDaliy_choose.shift();
     },
 
     // 半濕食 - 計算飼料還需要幾克
