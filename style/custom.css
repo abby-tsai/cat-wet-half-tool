@@ -33,7 +33,7 @@ input {
 body,
 p {
   font-weight: 400;
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 h1,
@@ -6161,7 +6161,8 @@ header .subTitle {
   color: #ffffff;
   font-weight: 400;
   line-height: 1.8;
-  margin: 0;
+  max-width: 360px;
+  margin: 0 auto;
 }
 
 .btn-base {
