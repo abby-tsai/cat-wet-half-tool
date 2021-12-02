@@ -12,6 +12,7 @@ const App = {
       isOpenAllWetFood: false,
       isOpenfeed_Info: false,
       isOpenHalfWetFood: false,
+      isOpenAllMath: false,
 
       // 勾選貓咪目前狀態
       cat_kitten_Status: ["10週大", "20週大", "30週大", "40週大"],
@@ -189,131 +190,141 @@ const App = {
 
     }
   },
+
+  computed: {
+    isDataChanged() {
+      return [this.cat_Info.weight, this.cat_Info.status, this.can_Nutrition.canWeight, this.can_Nutrition.Protein_p, this.can_Nutrition.Fat_p, this.can_Nutrition.Fiber_p, this.can_Nutrition.Water_p, this.can_Nutrition.Ash_p, this.feed_Nutrition.feed_1KG_Kcal, this.feed_Nutrition.Protein_p, this.feed_Nutrition.Fat_p, this.feed_Nutrition.Fiber_p, this.feed_Nutrition.Water_p, this.feed_Nutrition.Ash_p].join()
+    }
+  },
+
+  watch: {
+    isDataChanged: function () {
+      this.closeAllMath();
+    }
+  },
+
   methods: {
 
     reset() {
       window.location.reload();
     },
 
+    closeAllMath() {
+      this.isOpenAllMath = false;
+    },
+
     // 計算所有
     mathAll() {
-      this.cat_daliy_info();
-      this.math_can();
-      this.math_feed();
+      if (this.cat_Info.weight !== '' && this.cat_Info.status !== '' && this.can_Nutrition.canWeight !== '' && this.can_Nutrition.Protein_p !== '' && this.can_Nutrition.Fat_p !== '' && this.can_Nutrition.Fiber_p !== '' && this.can_Nutrition.Water_p !== '' && this.can_Nutrition.Ash_p !== '' && this.feed_Nutrition.feedWeight !== '' && this.feed_Nutrition.Protein_p !== '' && this.feed_Nutrition.Fat_p !== '' && this.feed_Nutrition.Fiber_p !== '' && this.feed_Nutrition.Water_p !== '' && this.feed_Nutrition.Ash_p !== '') {
+        this.isOpenAllMath = true;
+        this.cat_daliy_info();
+        this.math_can();
+        this.math_feed();
+      } else {
+        alert('請確認已填寫所有內容')
+      }
     },
 
     // 貓咪每日營養
     cat_daliy_info() {
 
-      if (this.cat_Info.weight !== '' && this.cat_Info.status !== '') {
+      // 開啟貓咪的每日計算結果
+      this.isOpenCat_Info = true;
 
-        // 開啟貓咪的每日計算結果
-        this.isOpenCat_Info = true;
-
-        switch (this.cat_Info.status) {
-          case '10週大':
-            this.cat_Info.kg_kcal = 248;
-            break;
-          case '20週大':
-            this.cat_Info.kg_kcal = 130;
-            break;
-          case '30週大':
-            this.cat_Info.kg_kcal = 99;
-            break;
-          case '40週大':
-            this.cat_Info.kg_kcal = 80;
-            break;
-          case '活動力低(未結紮)':
-            this.cat_Info.kg_kcal = 40;
-            break;
-          case '活動力低(已結紮)':
-            this.cat_Info.kg_kcal = 40 * 0.7;
-            break;
-          case '活動力高(未結紮)':
-            this.cat_Info.kg_kcal = 55;
-            break;
-          case '活動力高(已結紮)':
-            this.cat_Info.kg_kcal = 55 * 0.7;
-            break;
-          case '懷孕期':
-            this.cat_Info.kg_kcal = 99;
-            break;
-          case '哺乳期':
-            this.cat_Info.kg_kcal = 221;
-            break;
-        }
-
-        // 每日熱量
-        this.cat_Info.daliyKcal = (this.cat_Info.weight * this.cat_Info.kg_kcal).toFixed(0);
-        // 每日蛋白質克數
-        this.cat_Info.daliyProtein.min = ((this.cat_Info.daliyKcal * 0.46) / 3.5).toFixed(0);
-        this.cat_Info.daliyProtein.max = ((this.cat_Info.daliyKcal * 0.6) / 3.5).toFixed(0);
-        // 每日脂肪克數
-        this.cat_Info.daliyFat.min = ((this.cat_Info.daliyKcal * 0.09) / 8.5).toFixed(0);
-        this.cat_Info.daliyFat.max = ((this.cat_Info.daliyKcal * 0.5) / 8.5).toFixed(0);
-        // 每日飲水量
-        this.cat_Info.daliyWater.min = (this.cat_Info.weight * 40).toFixed(0);
-        this.cat_Info.daliyWater.max = (this.cat_Info.weight * 60).toFixed(0);
-        this.cat_Info.daliyWater.over = (this.cat_Info.daliyWater.min * 2).toFixed(0)
-      } else {
-        alert('請填寫第1步驟的所有欄位');
+      switch (this.cat_Info.status) {
+        case '10週大':
+          this.cat_Info.kg_kcal = 248;
+          break;
+        case '20週大':
+          this.cat_Info.kg_kcal = 130;
+          break;
+        case '30週大':
+          this.cat_Info.kg_kcal = 99;
+          break;
+        case '40週大':
+          this.cat_Info.kg_kcal = 80;
+          break;
+        case '活動力低(未結紮)':
+          this.cat_Info.kg_kcal = 40;
+          break;
+        case '活動力低(已結紮)':
+          this.cat_Info.kg_kcal = 40 * 0.7;
+          break;
+        case '活動力高(未結紮)':
+          this.cat_Info.kg_kcal = 55;
+          break;
+        case '活動力高(已結紮)':
+          this.cat_Info.kg_kcal = 55 * 0.7;
+          break;
+        case '懷孕期':
+          this.cat_Info.kg_kcal = 99;
+          break;
+        case '哺乳期':
+          this.cat_Info.kg_kcal = 221;
+          break;
       }
 
+      // 每日熱量
+      this.cat_Info.daliyKcal = (this.cat_Info.weight * this.cat_Info.kg_kcal).toFixed(0);
+      // 每日蛋白質克數
+      this.cat_Info.daliyProtein.min = ((this.cat_Info.daliyKcal * 0.46) / 3.5).toFixed(0);
+      this.cat_Info.daliyProtein.max = ((this.cat_Info.daliyKcal * 0.6) / 3.5).toFixed(0);
+      // 每日脂肪克數
+      this.cat_Info.daliyFat.min = ((this.cat_Info.daliyKcal * 0.09) / 8.5).toFixed(0);
+      this.cat_Info.daliyFat.max = ((this.cat_Info.daliyKcal * 0.5) / 8.5).toFixed(0);
+      // 每日飲水量
+      this.cat_Info.daliyWater.min = (this.cat_Info.weight * 40).toFixed(0);
+      this.cat_Info.daliyWater.max = (this.cat_Info.weight * 60).toFixed(0);
+      this.cat_Info.daliyWater.over = (this.cat_Info.daliyWater.min * 2).toFixed(0)
     },
 
     // 計算 罐頭 單位重量和乾物比
     math_can() {
 
-      if (this.can_Nutrition.canWeight !== '' && this.can_Nutrition.Protein_p !== '' && this.can_Nutrition.Fat_p !== '' && this.can_Nutrition.Fiber_p !== '' && this.can_Nutrition.Water_p !== '' && this.can_Nutrition.Ash_p !== '') {
+      // 開啟罐頭的計算結果
+      this.isOpenCan_Info = true;
 
-        // 開啟罐頭的計算結果
-        this.isOpenCan_Info = true;
+      // 計算碳水化合物
+      this.can_Nutrition.Carbohydrate_p = (100 - this.can_Nutrition.Protein_p - this.can_Nutrition.Fat_p - this.can_Nutrition.Fiber_p - this.can_Nutrition.Water_p - this.can_Nutrition.Ash_p).toFixed(1);
 
-        // 計算碳水化合物
-        this.can_Nutrition.Carbohydrate_p = (100 - this.can_Nutrition.Protein_p - this.can_Nutrition.Fat_p - this.can_Nutrition.Fiber_p - this.can_Nutrition.Water_p - this.can_Nutrition.Ash_p).toFixed(1);
+      // 蛋白質乾物比 = 蛋白質% / (100 - 水分%) * 100
+      this.can_dmd.dmb_protein = (this.can_Nutrition.Protein_p / (100 - this.can_Nutrition.Water_p) * 100).toFixed(1);
 
-        // 蛋白質乾物比 = 蛋白質% / (100 - 水分%) * 100
-        this.can_dmd.dmb_protein = (this.can_Nutrition.Protein_p / (100 - this.can_Nutrition.Water_p) * 100).toFixed(1);
+      // 脂肪乾物比 = 脂肪% / (100 - 水分%) * 100
+      this.can_dmd.dmb_fat = (this.can_Nutrition.Fat_p / (100 - this.can_Nutrition.Water_p) * 100).toFixed(1);
 
-        // 脂肪乾物比 = 脂肪% / (100 - 水分%) * 100
-        this.can_dmd.dmb_fat = (this.can_Nutrition.Fat_p / (100 - this.can_Nutrition.Water_p) * 100).toFixed(1);
+      // 碳水化合物乾物比 = 碳水化合物% / (100 - 水分%) * 100
+      this.can_dmd.dmb_carbohydrate = (this.can_Nutrition.Carbohydrate_p / (100 - this.can_Nutrition.Water_p) * 100).toFixed(1);
 
-        // 碳水化合物乾物比 = 碳水化合物% / (100 - 水分%) * 100
-        this.can_dmd.dmb_carbohydrate = (this.can_Nutrition.Carbohydrate_p / (100 - this.can_Nutrition.Water_p) * 100).toFixed(1);
+      // 纖維乾物比 = 纖維% / (100 - 水分%) * 100
+      this.can_dmd.dmb_fiber = (this.can_Nutrition.Fiber_p / (100 - this.can_Nutrition.Water_p) * 100).toFixed(1);
 
-        // 纖維乾物比 = 纖維% / (100 - 水分%) * 100
-        this.can_dmd.dmb_fiber = (this.can_Nutrition.Fiber_p / (100 - this.can_Nutrition.Water_p) * 100).toFixed(1);
+      // 執行罐頭的乾物比結果
+      this.can_dmb_result();
 
-        // 執行罐頭的乾物比結果
-        this.can_dmb_result();
+      // 計算一罐中含有的蛋白質(g)
+      this.can_Info.Protein_g = (this.can_Nutrition.canWeight * this.can_Nutrition.Protein_p / 100).toFixed(1);
 
-        // 計算一罐中含有的蛋白質(g)
-        this.can_Info.Protein_g = (this.can_Nutrition.canWeight * this.can_Nutrition.Protein_p / 100).toFixed(1);
+      // 計算一罐中含有的脂肪(g)
+      this.can_Info.Fat_g = (this.can_Nutrition.canWeight * this.can_Nutrition.Fat_p / 100).toFixed(1);
 
-        // 計算一罐中含有的脂肪(g)
-        this.can_Info.Fat_g = (this.can_Nutrition.canWeight * this.can_Nutrition.Fat_p / 100).toFixed(1);
+      // 計算一罐中含有的水分(ml)
+      this.can_Info.Water_g = (this.can_Nutrition.canWeight * this.can_Nutrition.Water_p / 100).toFixed(1);
 
-        // 計算一罐中含有的水分(ml)
-        this.can_Info.Water_g = (this.can_Nutrition.canWeight * this.can_Nutrition.Water_p / 100).toFixed(1);
+      // 計算一罐中含有的碳水化合物(g)
+      this.can_Info.Carbohydrate_g = (this.can_Nutrition.canWeight * this.can_Nutrition.Carbohydrate_p / 100).toFixed(1);
 
-        // 計算一罐中含有的碳水化合物(g)
-        this.can_Info.Carbohydrate_g = (this.can_Nutrition.canWeight * this.can_Nutrition.Carbohydrate_p / 100).toFixed(1);
+      // 計算一罐中含有的熱量
+      this.can_Info.Kcal = ((this.can_Info.Protein_g * 3.5) + (this.can_Info.Fat_g * 8.5) + (this.can_Info.Carbohydrate_g * 3.5)).toFixed(1);
 
-        // 計算一罐中含有的熱量
-        this.can_Info.Kcal = ((this.can_Info.Protein_g * 3.5) + (this.can_Info.Fat_g * 8.5) + (this.can_Info.Carbohydrate_g * 3.5)).toFixed(1);
+      // 執行計算全濕食配方的數據
+      this.allWetFood_result();
+      this.allWetFood_compare_cat_result();
 
-        // 執行計算全濕食配方的數據
-        this.allWetFood_result();
-        this.allWetFood_compare_cat_result();
-
-        // 如果全濕食的每日罐頭數量不等於 0 ，就執行以下
-        if (this.allWetFood_Info.items !== 0) {
-          this.halfWetFood_Info.canDaliy_choose = [];
-          this.halfWetFood_canDaliyNumber();
-        }
-
-      } else {
-        alert('請填寫第2步驟的所有欄位');
+      // 如果全濕食的每日罐頭數量不等於 0 ，就執行以下
+      if (this.allWetFood_Info.items !== 0) {
+        this.halfWetFood_Info.canDaliy_choose = [];
+        this.halfWetFood_canDaliyNumber();
       }
 
     },
@@ -486,47 +497,42 @@ const App = {
     // 計算 飼料 單位重量和乾物比
     math_feed() {
 
-      if (this.feed_Nutrition.feedWeight !== '' && this.feed_Nutrition.Protein_p !== '' && this.feed_Nutrition.Fat_p !== '' && this.feed_Nutrition.Fiber_p !== '' && this.feed_Nutrition.Water_p !== '' && this.feed_Nutrition.Ash_p !== '') {
+      // 開啟罐頭的計算結果
+      this.isOpenfeed_Info = true;
 
-        // 開啟罐頭的計算結果
-        this.isOpenfeed_Info = true;
+      // 計算碳水化合物
+      this.feed_Nutrition.Carbohydrate_p = (100 - this.feed_Nutrition.Protein_p - this.feed_Nutrition.Fat_p - this.feed_Nutrition.Fiber_p - this.feed_Nutrition.Water_p - this.feed_Nutrition.Ash_p).toFixed(1);
 
-        // 計算碳水化合物
-        this.feed_Nutrition.Carbohydrate_p = (100 - this.feed_Nutrition.Protein_p - this.feed_Nutrition.Fat_p - this.feed_Nutrition.Fiber_p - this.feed_Nutrition.Water_p - this.feed_Nutrition.Ash_p).toFixed(1);
+      // 蛋白質乾物比 = 蛋白質% / (100 - 水分%) * 100
+      this.feed_dmd.dmb_protein = (this.feed_Nutrition.Protein_p / (100 - this.feed_Nutrition.Water_p) * 100).toFixed(1);
 
-        // 蛋白質乾物比 = 蛋白質% / (100 - 水分%) * 100
-        this.feed_dmd.dmb_protein = (this.feed_Nutrition.Protein_p / (100 - this.feed_Nutrition.Water_p) * 100).toFixed(1);
+      // 脂肪乾物比 = 脂肪% / (100 - 水分%) * 100
+      this.feed_dmd.dmb_fat = (this.feed_Nutrition.Fat_p / (100 - this.feed_Nutrition.Water_p) * 100).toFixed(1);
 
-        // 脂肪乾物比 = 脂肪% / (100 - 水分%) * 100
-        this.feed_dmd.dmb_fat = (this.feed_Nutrition.Fat_p / (100 - this.feed_Nutrition.Water_p) * 100).toFixed(1);
+      // 碳水化合物乾物比 = 碳水化合物% / (100 - 水分%) * 100
+      this.feed_dmd.dmb_carbohydrate = (this.feed_Nutrition.Carbohydrate_p / (100 - this.feed_Nutrition.Water_p) * 100).toFixed(1);
 
-        // 碳水化合物乾物比 = 碳水化合物% / (100 - 水分%) * 100
-        this.feed_dmd.dmb_carbohydrate = (this.feed_Nutrition.Carbohydrate_p / (100 - this.feed_Nutrition.Water_p) * 100).toFixed(1);
+      // 纖維乾物比 = 纖維% / (100 - 水分%) * 100
+      this.feed_dmd.dmb_fiber = (this.feed_Nutrition.Fiber_p / (100 - this.feed_Nutrition.Water_p) * 100).toFixed(1);
 
-        // 纖維乾物比 = 纖維% / (100 - 水分%) * 100
-        this.feed_dmd.dmb_fiber = (this.feed_Nutrition.Fiber_p / (100 - this.feed_Nutrition.Water_p) * 100).toFixed(1);
+      // 執行罐頭的乾物比結果
+      this.feed_dmb_result();
 
-        // 執行罐頭的乾物比結果
-        this.feed_dmb_result();
+      // 計算一罐中含有的蛋白質(g)
+      this.feed_Info.Protein_g = (this.feed_Nutrition.feedWeight * this.feed_Nutrition.Protein_p / 100).toFixed(1);
 
-        // 計算一罐中含有的蛋白質(g)
-        this.feed_Info.Protein_g = (this.feed_Nutrition.feedWeight * this.feed_Nutrition.Protein_p / 100).toFixed(1);
+      // 計算一罐中含有的脂肪(g)
+      this.feed_Info.Fat_g = (this.feed_Nutrition.feedWeight * this.feed_Nutrition.Fat_p / 100).toFixed(1);
 
-        // 計算一罐中含有的脂肪(g)
-        this.feed_Info.Fat_g = (this.feed_Nutrition.feedWeight * this.feed_Nutrition.Fat_p / 100).toFixed(1);
+      // 計算一罐中含有的水分(ml)
+      this.feed_Info.Water_g = (this.feed_Nutrition.feedWeight * this.feed_Nutrition.Water_p / 100).toFixed(1);
 
-        // 計算一罐中含有的水分(ml)
-        this.feed_Info.Water_g = (this.feed_Nutrition.feedWeight * this.feed_Nutrition.Water_p / 100).toFixed(1);
+      // 計算一罐中含有的碳水化合物(g)
+      this.feed_Info.Carbohydrate_g = (this.feed_Nutrition.feedWeight * this.feed_Nutrition.Carbohydrate_p / 100).toFixed(1);
 
-        // 計算一罐中含有的碳水化合物(g)
-        this.feed_Info.Carbohydrate_g = (this.feed_Nutrition.feedWeight * this.feed_Nutrition.Carbohydrate_p / 100).toFixed(1);
+      // 計算一罐中含有的熱量
+      this.feed_Info.Kcal = ((this.feed_Info.Protein_g * 3.5) + (this.feed_Info.Fat_g * 8.5) + (this.feed_Info.Carbohydrate_g * 3.5)).toFixed(1);
 
-        // 計算一罐中含有的熱量
-        this.feed_Info.Kcal = ((this.feed_Info.Protein_g * 3.5) + (this.feed_Info.Fat_g * 8.5) + (this.feed_Info.Carbohydrate_g * 3.5)).toFixed(1);
-
-      } else {
-        alert('請填寫第3步驟的所有欄位');
-      }
 
     },
 
@@ -728,7 +734,6 @@ const App = {
         this.isOpenHalfWetFood = !this.isOpenHalfWetFood;
       }
     },
-
 
   }
 }
