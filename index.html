@@ -44,8 +44,8 @@
               <div class="input-box mb-1">
                 <input type="text" placeholder="0" v-model="cat_Info.weight">
                 <span class="text-unit">kg</span>
-                <!-- <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
-                    過瘦貓，請輸入理想體重。</span> -->
+                <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
+                    過瘦貓，請輸入理想體重。</span>
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@
 
           <div class="row mb-1">
             <div class="Block--12">
-              <p class="mb-0" style="font-weight: 600;">母貓</p>
+              <p class="mb-0" style="font-weight: 600;">懷孕貓</p>
               <div class="radio-box" v-for="(mother, key) in cat_mother_Status" :key="'mother' + key">
                 <input type="radio" :id="'mother' + key" name="cat_Status" :value="mother" v-model="cat_Info.status">
                 <label :for="'mother' + key">{{ mother }}</label>
