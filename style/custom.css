@@ -6140,6 +6140,7 @@ start. header*/
 body {
   color: #4b4b4b;
   background-color: #f8f8f8;
+  -webkit-text-size-adjust: 100%;
 }
 
 .header {
@@ -6161,8 +6162,7 @@ header .subTitle {
   color: #ffffff;
   font-weight: 400;
   line-height: 1.8;
-  max-width: 360px;
-  margin: 0 auto;
+  margin-bottom: 0;
 }
 
 .btn-base {
