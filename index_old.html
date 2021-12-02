@@ -29,175 +29,67 @@
 
           <div class="step-text text-center mb-3">
             <p>
-              <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP. 1</span>
+              <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP 1</span>
               <br>
               計算貓咪一日需要吃多少吧！
             </p>
           </div>
 
-          <p class="font-size-17 mb-1" style="font-weight: 600;">
-            請輸入貓咪的體重：
-          </p>
+            <p class="font-size-17 mb-1" style="font-weight: 600;">
+              請輸入貓咪的體重：
+            </p>
 
-          <div class="row">
-            <div class="Block--12">
-              <div class="input-box mb-1">
-                <input type="text" placeholder="0" v-model="cat_Info.weight">
-                <span class="text-unit">kg</span>
-                <!-- <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
+            <div class="row">
+              <div class="Block--12">
+                <div class="input-box mb-1">
+                  <input type="text" placeholder="0" v-model="cat_Info.weight">
+                  <span class="text-unit">kg</span>
+                  <!-- <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
                     過瘦貓，請輸入理想體重。</span> -->
-              </div>
-            </div>
-          </div>
-
-          <p class="font-size-17 mb-1" style="font-weight: 600;">請勾選貓咪的目前狀態(擇一)：</p>
-
-          <div class="row mb-1">
-            <div class="Block--12">
-              <p class="mb-0" style="font-weight: 600;">幼貓</p>
-              <div class="radio-box" v-for="(kitten, key) in cat_kitten_Status" :key="'kitten' + key">
-                <input type="radio" :id="'kitten' + key" name="cat_Status" :value="kitten" v-model="cat_Info.status">
-                <label :for="'kitten' + key">{{ kitten }}</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-1">
-            <div class="Block--12">
-              <p class="mb-0" style="font-weight: 600;">成貓</p>
-              <div class="radio-box" v-for="(normal, key) in cat_normal_Status" :key="'normal' + key">
-                <input type="radio" :id="'normal' + key" name="cat_Status" :value="normal" v-model="cat_Info.status">
-                <label :for="'normal' + key">{{ normal }}</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-1">
-            <div class="Block--12">
-              <p class="mb-0" style="font-weight: 600;">母貓</p>
-              <div class="radio-box" v-for="(mother, key) in cat_mother_Status" :key="'mother' + key">
-                <input type="radio" :id="'mother' + key" name="cat_Status" :value="mother" v-model="cat_Info.status">
-                <label :for="'mother' + key">{{ mother }}</label>
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-
-        <section class="step_2_section">
-
-          <div class="step-text text-center mb-3">
-            <p>
-              <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP. 2</span><br>
-              挑選一種罐頭<br>
-              計算單位重量和乾物比
-            </p>
-          </div>
-
-          <form action="">
-            <div class="row form-row">
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">罐頭重量(g)</label>
-                  <input type="number" v-model="can_Nutrition.canWeight" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">蛋白質(%)</label>
-                  <input type="number" v-model="can_Nutrition.Protein_p" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">脂肪(%)</label>
-                  <input type="number" v-model="can_Nutrition.Fat_p" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">纖維(%)</label>
-                  <input type="number" v-model="can_Nutrition.Fiber_p" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">灰份(%)</label>
-                  <input type="number" v-model="can_Nutrition.Ash_p" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">水分(%)</label>
-                  <input type="number" v-model="can_Nutrition.Water_p" placeholder="0">
                 </div>
               </div>
             </div>
-          </form>
 
-        </section>
+            <p class="font-size-17 mb-1" style="font-weight: 600;">請勾選貓咪的目前狀態(擇一)：</p>
 
-        <section class="step_3_section">
-          <div class="step-text text-center mb-3">
-            <p>
-              <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP. 3</span><br>
-              挑選一種飼料<br>
-              計算每日還需要吃多少
-            </p>
-          </div>
-
-          <form action="">
-            <div class="row form-row">
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">飼料1公斤的熱量(kcal)</label>
-                  <input type="number" v-model="feed_Nutrition.feed_1KG_Kcal" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">蛋白質(%)</label>
-                  <input type="number" v-model="feed_Nutrition.Protein_p" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">脂肪(%)</label>
-                  <input type="number" v-model="feed_Nutrition.Fat_p" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">纖維(%)</label>
-                  <input type="number" v-model="feed_Nutrition.Fiber_p" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">灰份(%)</label>
-                  <input type="number" v-model="feed_Nutrition.Ash_p" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">水分(%)</label>
-                  <input type="number" v-model="feed_Nutrition.Water_p" placeholder="0">
+            <div class="row mb-1">
+              <div class="Block--12">
+                <p class="mb-0" style="font-weight: 600;">幼貓</p>
+                <div class="radio-box" v-for="(kitten, key) in cat_kitten_Status" :key="'kitten' + key">
+                  <input type="radio" :id="'kitten' + key" name="cat_Status" :value="kitten" v-model="cat_Info.status">
+                  <label :for="'kitten' + key">{{ kitten }}</label>
                 </div>
               </div>
             </div>
-          </form>
-        </section>
 
-        <section class="step_4_section">
-
-
-          <div class="row mb-1">
-            <div class="Block--12">
-              <button class="btn-base-outline" type="button" @click.prevent="mathAll">開始計算！</button>
+            <div class="row mb-1">
+              <div class="Block--12">
+                <p class="mb-0" style="font-weight: 600;">成貓</p>
+                <div class="radio-box" v-for="(normal, key) in cat_normal_Status" :key="'normal' + key">
+                  <input type="radio" :id="'normal' + key" name="cat_Status" :value="normal" v-model="cat_Info.status">
+                  <label :for="'normal' + key">{{ normal }}</label>
+                </div>
+              </div>
             </div>
-          </div>
 
+            <div class="row mb-1">
+              <div class="Block--12">
+                <p class="mb-0" style="font-weight: 600;">母貓</p>
+                <div class="radio-box" v-for="(mother, key) in cat_mother_Status" :key="'mother' + key">
+                  <input type="radio" :id="'mother' + key" name="cat_Status" :value="mother" v-model="cat_Info.status">
+                  <label :for="'mother' + key">{{ mother }}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="Block--12">
+                <button class="btn-base-outline" type="button" @click.prevent="cat_daliy_info">開始計算！</button>
+              </div>
+            </div>
+
+
+          <!-- <div class="step_1_block" style="visibility: hidden; height: 0;"> -->
           <div class="step_1_block" v-if="isOpenCat_Info">
 
             <div class="pt-1 pb-2"></div>
@@ -249,8 +141,66 @@
                 </div>
               </div>
             </div>
-
           </div>
+
+        </section>
+
+
+        <section class="step_2_section">
+
+          <div class="step-text text-center mb-3">
+            <p>
+              <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP 2</span><br>
+              挑選一種罐頭<br>
+              計算單位重量和乾物比
+            </p>
+          </div>
+
+          <form action="">
+            <div class="row form-row">
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">罐頭重量(g)</label>
+                  <input type="number" v-model="can_Nutrition.canWeight" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">蛋白質(%)</label>
+                  <input type="number" v-model="can_Nutrition.Protein_p" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">脂肪(%)</label>
+                  <input type="number" v-model="can_Nutrition.Fat_p" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">纖維(%)</label>
+                  <input type="number" v-model="can_Nutrition.Fiber_p" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">灰份(%)</label>
+                  <input type="number" v-model="can_Nutrition.Ash_p" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">水分(%)</label>
+                  <input type="number" v-model="can_Nutrition.Water_p" placeholder="0">
+                </div>
+              </div>
+            </div>
+            <div class="row mt-1">
+              <div class="Block--12">
+                <button class="btn-base-outline" type="button" @click.prevent="math_can">開始計算！</button>
+              </div>
+            </div>
+          </form>
 
           <div class="step_2_block" v-if="isOpenCan_Info">
 
@@ -297,6 +247,7 @@
               </table>
             </div>
 
+
             <p class="font-size-17 mb-1 text-center" style="font-weight: 600;">
               一罐中含有的熱量和營養
             </p>
@@ -329,6 +280,63 @@
             </div>
 
           </div>
+
+        </section>
+
+        <section class="step_3_section">
+          <div class="step-text text-center mb-3">
+            <p>
+              <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP 3</span><br>
+              挑選一種飼料<br>
+              計算每日還需要吃多少
+            </p>
+          </div>
+
+          <form action="">
+            <div class="row form-row">
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">飼料1公斤的熱量(kcal)</label>
+                  <input type="number" v-model="feed_Nutrition.feed_1KG_Kcal" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">蛋白質(%)</label>
+                  <input type="number" v-model="feed_Nutrition.Protein_p" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">脂肪(%)</label>
+                  <input type="number" v-model="feed_Nutrition.Fat_p" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">纖維(%)</label>
+                  <input type="number" v-model="feed_Nutrition.Fiber_p" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">灰份(%)</label>
+                  <input type="number" v-model="feed_Nutrition.Ash_p" placeholder="0">
+                </div>
+              </div>
+              <div class="Block--6">
+                <div class="input-box group mb-1">
+                  <label for="">水分(%)</label>
+                  <input type="number" v-model="feed_Nutrition.Water_p" placeholder="0">
+                </div>
+              </div>
+            </div>
+            <div class="row mt-1">
+              <div class="Block--12">
+                <button class="btn-base-outline" type="button" @click.prevent="math_feed">開始計算！</button>
+              </div>
+            </div>
+          </form>
 
           <div class="step_3_block" v-if="isOpenfeed_Info">
 
@@ -375,9 +383,10 @@
               </table>
             </div>
 
-            <div class="pt-1 pb-2"></div>
-
           </div>
+        </section>
+
+        <section class="step_4_section">
 
           <div class="row justify-content-center">
             <div class="Block--12">
@@ -460,7 +469,7 @@
           <div class="row justify-content-center">
             <div class="Block--12">
               <button class="btn-base mb-1 btn-toggle text-left" type="button" @click.prevent="openHalfWetFood_result">
-                半濕食配方
+                  半濕食配方
                 <i class="icon fas fa-plus" v-if="!isOpenHalfWetFood"></i>
                 <i class="icon fas fa-minus" v-else></i>
               </button>
@@ -478,8 +487,7 @@
               <div class="Block--12">
                 <div class="radio-box" v-for="(canDaliyNumber, key) in halfWetFood_Info.canDaliy_choose"
                   :key="'canDaliyNumber' + key">
-                  <input type="radio" :id="'canDaliyNumber' + key" name="halfWetFood_canDaliy" :value="canDaliyNumber"
-                    v-model="halfWetFood_Info.canDaliyNumber" @click="math_feed_g(canDaliyNumber)">
+                  <input type="radio" :id="'canDaliyNumber' + key" name="halfWetFood_canDaliy" :value="canDaliyNumber" v-model="halfWetFood_Info.canDaliyNumber" @click="math_feed_g(canDaliyNumber)">
                   <label :for="'canDaliyNumber' + key">罐頭 {{ canDaliyNumber }} 個 + 飼料</label>
                 </div>
               </div>
