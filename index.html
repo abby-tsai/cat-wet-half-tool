@@ -39,14 +39,14 @@
             請輸入貓咪的體重：
           </p>
 
-          <div class="row">
+          <div class="row mb-2">
             <div class="Block--12">
-              <div class="input-box mb-1">
+              <div class="input-box">
                 <input type="text" placeholder="0" v-model="cat_Info.weight">
                 <span class="text-unit">kg</span>
-                <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
-                  過瘦貓，請輸入理想體重。</span>
               </div>
+              <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
+                過瘦貓，請輸入理想體重。</span>
             </div>
           </div>
 
@@ -54,7 +54,7 @@
 
           <div class="row mb-1">
             <div class="Block--12">
-              <p class="mb-0" style="font-weight: 600;">幼貓</p>
+              <p class="mb-0 font-size-15" style="font-weight: 600;">– 幼貓</p>
               <div class="radio-box" v-for="(kitten, key) in cat_kitten_Status" :key="'kitten' + key">
                 <input type="radio" :id="'kitten' + key" name="cat_Status" :value="kitten" v-model="cat_Info.status">
                 <label :for="'kitten' + key">{{ kitten }}</label>
@@ -64,7 +64,7 @@
 
           <div class="row mb-1">
             <div class="Block--12">
-              <p class="mb-0" style="font-weight: 600;">成貓</p>
+              <p class="mb-0 font-size-15" style="font-weight: 600;">– 成貓</p>
               <div class="radio-box" v-for="(normal, key) in cat_normal_Status" :key="'normal' + key">
                 <input type="radio" :id="'normal' + key" name="cat_Status" :value="normal" v-model="cat_Info.status">
                 <label :for="'normal' + key">{{ normal }}</label>
@@ -74,7 +74,7 @@
 
           <div class="row mb-1">
             <div class="Block--12">
-              <p class="mb-0" style="font-weight: 600;">懷孕貓</p>
+              <p class="mb-0 font-size-15" style="font-weight: 600;">– 懷孕貓</p>
               <div class="radio-box" v-for="(mother, key) in cat_mother_Status" :key="'mother' + key">
                 <input type="radio" :id="'mother' + key" name="cat_Status" :value="mother" v-model="cat_Info.status">
                 <label :for="'mother' + key">{{ mother }}</label>
@@ -99,38 +99,44 @@
             <div class="row form-row">
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">罐頭重量(g)</label>
+                  <label for="">罐頭重量</label>
                   <input type="number" v-model="can_Nutrition.canWeight" placeholder="0">
+                  <span class="text-unit">g</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">蛋白質(%)</label>
+                  <label for="">蛋白質</label>
                   <input type="number" v-model="can_Nutrition.Protein_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">脂肪(%)</label>
+                  <label for="">脂肪</label>
                   <input type="number" v-model="can_Nutrition.Fat_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">纖維(%)</label>
+                  <label for="">纖維</label>
                   <input type="number" v-model="can_Nutrition.Fiber_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">灰份(%)</label>
+                  <label for="">灰份</label>
                   <input type="number" v-model="can_Nutrition.Ash_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">水分(%)</label>
+                  <label for="">水分</label>
                   <input type="number" v-model="can_Nutrition.Water_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
             </div>
@@ -151,38 +157,44 @@
             <div class="row form-row">
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">飼料1公斤的熱量(kcal)</label>
+                  <label for="">飼料1公斤的熱量</label>
                   <input type="number" v-model="feed_Nutrition.feed_1KG_Kcal" placeholder="0">
+                  <span class="text-unit">kcal</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">蛋白質(%)</label>
+                  <label for="">蛋白質</label>
                   <input type="number" v-model="feed_Nutrition.Protein_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">脂肪(%)</label>
+                  <label for="">脂肪</label>
                   <input type="number" v-model="feed_Nutrition.Fat_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">纖維(%)</label>
+                  <label for="">纖維</label>
                   <input type="number" v-model="feed_Nutrition.Fiber_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">灰份(%)</label>
+                  <label for="">灰份</label>
                   <input type="number" v-model="feed_Nutrition.Ash_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
               <div class="Block--6">
                 <div class="input-box group mb-1">
-                  <label for="">水分(%)</label>
+                  <label for="">水分</label>
                   <input type="number" v-model="feed_Nutrition.Water_p" placeholder="0">
+                  <span class="text-unit">%</span>
                 </div>
               </div>
             </div>
