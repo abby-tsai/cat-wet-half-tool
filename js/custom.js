@@ -622,9 +622,9 @@ const App = {
       this.feed_Nutrition_g();
 
       // N個罐頭的各營養 g
-      this.halfWetFood_Info.Protein.can_Protein_g = Number(((can_item + 1) * this.can_Info.Protein_g).toFixed(0));
-      this.halfWetFood_Info.Fat.can_Fat_g = Number(((can_item + 1) * this.can_Info.Fat_g).toFixed(0));
-      this.halfWetFood_Info.Water.can_Water_g = Number(((can_item + 1) * this.can_Info.Water_g).toFixed(0));
+      this.halfWetFood_Info.Protein.can_Protein_g = Number(((can_item) * this.can_Info.Protein_g).toFixed(0));
+      this.halfWetFood_Info.Fat.can_Fat_g = Number(((can_item) * this.can_Info.Fat_g).toFixed(0));
+      this.halfWetFood_Info.Water.can_Water_g = Number(((can_item) * this.can_Info.Water_g).toFixed(0));
 
       // 半濕食配方 - 每日半濕食各營養 g
       this.halfWetFood_Info.Protein.number = Number((this.halfWetFood_Info.Protein.can_Protein_g + this.feed_Info.Protein_g).toFixed(0));
