@@ -35,9 +35,9 @@
 <body>
 
   <div class="fixed-btn">
-    <a class="btn" href="#section_1">步驟 1</a>
-    <a class="btn" href="#section_2">步驟 2</a>
-    <a class="btn" href="#section_3">步驟 3</a>
+    <a class="btn" href="#section_1">貓咪狀態</a>
+    <a class="btn" href="#section_2">罐頭營養</a>
+    <a class="btn" href="#section_3">飼料營養</a>
     <a class="btn" href="#section_4">計算結果</a>
   </div>
 
@@ -243,7 +243,10 @@
 
           <div class="row mb-1">
             <div class="Block--12">
-              <button class="btn-base-outline" type="button" @click.prevent="mathAll">開始計算！</button>
+              <button class="btn-base" type="button" @click.prevent="mathAll">
+                開始計算
+                <i data-feather="check-circle" class="position-relative top-3 left-5"></i>
+              </button>
             </div>
           </div>
 
@@ -606,7 +609,10 @@
 
           <div class="row justify-content-center">
             <div class="Block--12">
-              <button class="btn-no" type="button" @click="reset">重新計算</button>
+              <button class="btn-no" type="button" @click="reset">
+                重新計算
+                <i data-feather="refresh-ccw" class="position-relative top-3 left-5"></i>
+              </button>
             </div>
           </div>
 
