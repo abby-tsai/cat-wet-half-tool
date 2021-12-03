@@ -6188,8 +6188,7 @@ header .subTitle {
   color: #00B79E;
   width: 100%;
   height: 45px;
-  text-align: center;
-  font-size: 20px;
+  font-size: 17px;
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -6197,6 +6196,8 @@ header .subTitle {
   -o-border-radius: 4px;
   line-height: 41px;
   display: block;
+  padding: 0 17px;
+  font-weight: 600;
 }
 
 .btn-blue {
@@ -6495,7 +6496,7 @@ start. content*/
 
 .btn-toggle .icon {
   position: absolute;
-  top: 13px;
+  top: 12px;
   right: 17px;
 }
 

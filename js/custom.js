@@ -36,6 +36,7 @@ const App = {
       isOpenfeed_Info: false,
       isOpenHalfWetFood: false,
       isOpenAllMath: false,
+      isOpenCatInfoAndDmb: false,
 
       // 勾選貓咪目前狀態
       cat_kitten_Status: ["10週大", "20週大", "30週大", "40週大"],
@@ -757,6 +758,10 @@ const App = {
         this.isOpenHalfWetFood = !this.isOpenHalfWetFood;
       }
     },
+
+    openCatInfoAndDmb() {
+      this.isOpenCatInfoAndDmb = !this.isOpenCatInfoAndDmb;
+    }
 
   }
 }

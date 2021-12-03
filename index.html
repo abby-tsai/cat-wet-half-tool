@@ -240,7 +240,6 @@
 
         <section class="step_4_section">
 
-
           <div class="row mb-1">
             <div class="Block--12">
               <button class="btn-base" type="button" @click.prevent="mathAll">
@@ -252,179 +251,186 @@
 
           <div v-if="isOpenAllMath">
 
-            <div class="step_1_block" v-if="isOpenCat_Info">
+            <div class="step_1_block">
 
-              <div class="pt-1 pb-1"></div>
+              <div class="row justify-content-center">
+                <div class="Block--12">
+                  <button class="btn-base-outline mb-1 btn-toggle text-left" type="button"
+                    @click.prevent="openCatInfoAndDmb">
+                    貓咪每日所需 & 罐頭飼料乾物比
+                    <i class="icon fas fa-plus" v-if="!isOpenCatInfoAndDmb"></i>
+                    <i class="icon fas fa-minus" v-else></i>
+                  </button>
+                </div>
+              </div>
 
-              <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
-                貓咪每日所需營養
+              <div v-if="isOpenCatInfoAndDmb">
+
+                <div class="pt-1 pb-1"></div>
+
+                <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
+                  貓咪每日所需營養
+                </p>
+
+                <div class="row form-row">
+                  <div class="Block--6">
+                    <div class="input-box group mb-1">
+                      <label for="">每日熱量</label>
+                      <input class="input-readonly" type="text" :value="cat_Info.daliyKcal" readonly>
+                      <span class="text-unit">kcal</span>
+                    </div>
+                  </div>
+                  <div class="Block--6">
+                    <div class="input-box group mb-1">
+                      <label for="">每日蛋白質</label>
+                      <input class="input-readonly" type="text"
+                        :value="`${cat_Info.daliyProtein.min} ~ ${cat_Info.daliyProtein.max}`" readonly>
+                      <span class="text-unit">g</span>
+                    </div>
+                  </div>
+                  <div class="Block--6">
+                    <div class="input-box group mb-1">
+                      <label for="">每日脂肪</label>
+                      <input class="input-readonly" type="text"
+                        :value="`${cat_Info.daliyFat.min} ~ ${cat_Info.daliyFat.max}`" readonly>
+                      <span class="text-unit">g</span>
+                    </div>
+                  </div>
+                  <div class="Block--6">
+                    <div class="input-box group mb-1">
+                      <label for="">每日飲水量</label>
+                      <input class="input-readonly" type="text"
+                        :value="`${cat_Info.daliyWater.min} ~ ${cat_Info.daliyWater.max}`" readonly>
+                      <span class="text-unit">ml</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-1 pb-1"></div>
+
+                <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
+                  罐頭的乾物比
+                </p>
+
+                <div class="result-block mb-3">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>蛋白質</th>
+                        <th>脂肪</th>
+                        <th>碳水化合物</th>
+                        <th>纖維</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="bg-light">
+                        <td>比例建議</td>
+                        <td>45%以上</td>
+                        <td>25~45%</td>
+                        <td>10%以下</td>
+                        <td>1~5%</td>
+                      </tr>
+                      <tr>
+                        <td>罐頭</td>
+                        <td :class="can_dmd.protein_colorClass">{{ can_dmd.dmb_protein }}%</td>
+                        <td :class="can_dmd.fat_colorClass">{{ can_dmd.dmb_fat }}%</td>
+                        <td :class="can_dmd.carbohydrate_colorClass">{{ can_dmd.dmb_carbohydrate }}%</td>
+                        <td :class="can_dmd.fiber_colorClass">{{ can_dmd.dmb_fiber }}%</td>
+                      </tr>
+                      <tr class="result">
+                        <td>計算結論</td>
+                        <td :class="can_dmd.protein_colorClass">{{ can_dmd.dmb_protein_result }}</td>
+                        <td :class="can_dmd.fat_colorClass">{{ can_dmd.dmb_fat_result }}</td>
+                        <td :class="can_dmd.carbohydrate_colorClass">{{ can_dmd.dmb_carbohydrate_result }}</td>
+                        <td :class="can_dmd.fiber_colorClass">{{ can_dmd.dmb_fiber_result }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- 先不顯示
+              <p class="font-size-17 mb-1 text-center" style="font-weight: 600;">
+                一罐中含有的熱量和營養
               </p>
-
+  
               <div class="row form-row">
                 <div class="Block--6">
                   <div class="input-box group mb-1">
-                    <label for="">每日熱量</label>
-                    <input class="input-readonly" type="text" :value="cat_Info.daliyKcal" readonly>
-                    <span class="text-unit">kcal</span>
+                    <label for="">熱量(kcal)</label>
+                    <input type="text" placeholder="0" class="input-readonly" v-model="can_Info.Kcal" readonly>
                   </div>
                 </div>
                 <div class="Block--6">
                   <div class="input-box group mb-1">
-                    <label for="">每日蛋白質</label>
-                    <input class="input-readonly" type="text"
-                      :value="`${cat_Info.daliyProtein.min} ~ ${cat_Info.daliyProtein.max}`" readonly>
-                    <span class="text-unit">g</span>
+                    <label for="">蛋白質(g)</label>
+                    <input type="number" class="input-readonly" v-model="can_Info.Protein_g" placeholder="0">
                   </div>
                 </div>
                 <div class="Block--6">
                   <div class="input-box group mb-1">
-                    <label for="">每日脂肪</label>
-                    <input class="input-readonly" type="text"
-                      :value="`${cat_Info.daliyFat.min} ~ ${cat_Info.daliyFat.max}`" readonly>
-                    <span class="text-unit">g</span>
+                    <label for="">脂肪(g)</label>
+                    <input type="number" class="input-readonly" v-model="can_Info.Fat_g" placeholder="0">
                   </div>
                 </div>
                 <div class="Block--6">
                   <div class="input-box group mb-1">
-                    <label for="">每日飲水量</label>
-                    <input class="input-readonly" type="text"
-                      :value="`${cat_Info.daliyWater.min} ~ ${cat_Info.daliyWater.max}`" readonly>
-                    <span class="text-unit">ml</span>
+                    <label for="">水分(ml)</label>
+                    <input type="number" class="input-readonly" v-model="can_Info.Water_g" placeholder="0">
                   </div>
                 </div>
-              </div>
+              </div> -->
 
-            </div>
+                <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
+                  飼料的乾物比
+                </p>
 
-            <div class="step_2_block" v-if="isOpenCan_Info">
-
-              <div class="pt-1 pb-1"></div>
-
-              <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
-                罐頭的乾物比
-              </p>
-
-              <div class="result-block mb-3">
-                <table>
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>蛋白質</th>
-                      <th>脂肪</th>
-                      <th>碳水化合物</th>
-                      <th>纖維</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="bg-light">
-                      <td>比例建議</td>
-                      <td>45%以上</td>
-                      <td>25~45%</td>
-                      <td>10%以下</td>
-                      <td>1~5%</td>
-                    </tr>
-                    <tr>
-                      <td>罐頭</td>
-                      <td :class="can_dmd.protein_colorClass">{{ can_dmd.dmb_protein }}%</td>
-                      <td :class="can_dmd.fat_colorClass">{{ can_dmd.dmb_fat }}%</td>
-                      <td :class="can_dmd.carbohydrate_colorClass">{{ can_dmd.dmb_carbohydrate }}%</td>
-                      <td :class="can_dmd.fiber_colorClass">{{ can_dmd.dmb_fiber }}%</td>
-                    </tr>
-                    <tr class="result">
-                      <td>計算結論</td>
-                      <td :class="can_dmd.protein_colorClass">{{ can_dmd.dmb_protein_result }}</td>
-                      <td :class="can_dmd.fat_colorClass">{{ can_dmd.dmb_fat_result }}</td>
-                      <td :class="can_dmd.carbohydrate_colorClass">{{ can_dmd.dmb_carbohydrate_result }}</td>
-                      <td :class="can_dmd.fiber_colorClass">{{ can_dmd.dmb_fiber_result }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <!-- 先不顯示
-            <p class="font-size-17 mb-1 text-center" style="font-weight: 600;">
-              一罐中含有的熱量和營養
-            </p>
-
-            <div class="row form-row">
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">熱量(kcal)</label>
-                  <input type="text" placeholder="0" class="input-readonly" v-model="can_Info.Kcal" readonly>
+                <div class="result-block">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>蛋白質</th>
+                        <th>脂肪</th>
+                        <th>碳水化合物</th>
+                        <th>纖維</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="bg-light">
+                        <td>比例建議</td>
+                        <td>45%以上</td>
+                        <td>25~45%</td>
+                        <td>25%以下</td>
+                        <td>1~5%</td>
+                      </tr>
+                      <tr>
+                        <td>飼料</td>
+                        <td :class="feed_dmd.protein_colorClass">{{ feed_dmd.dmb_protein }}%</td>
+                        <td :class="feed_dmd.fat_colorClass">{{ feed_dmd.dmb_fat }}%</td>
+                        <td :class="feed_dmd.carbohydrate_colorClass">{{ feed_dmd.dmb_carbohydrate }}%</td>
+                        <td :class="feed_dmd.fiber_colorClass">{{ feed_dmd.dmb_fiber }}%</td>
+                      </tr>
+                      <tr class="result">
+                        <td>計算結論</td>
+                        <td :class="feed_dmd.protein_colorClass">{{ feed_dmd.dmb_protein_result }}</td>
+                        <td :class="feed_dmd.fat_colorClass">{{ feed_dmd.dmb_fat_result }}</td>
+                        <td :class="feed_dmd.carbohydrate_colorClass">{{ feed_dmd.dmb_carbohydrate_result }}</td>
+                        <td :class="feed_dmd.fiber_colorClass">{{ feed_dmd.dmb_fiber_result }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">蛋白質(g)</label>
-                  <input type="number" class="input-readonly" v-model="can_Info.Protein_g" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">脂肪(g)</label>
-                  <input type="number" class="input-readonly" v-model="can_Info.Fat_g" placeholder="0">
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">水分(ml)</label>
-                  <input type="number" class="input-readonly" v-model="can_Info.Water_g" placeholder="0">
-                </div>
-              </div>
-            </div> -->
 
-            </div>
+                <div class="pt-1 pb-2"></div>
 
-            <div class="step_3_block" v-if="isOpenfeed_Info">
-
-              <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
-                飼料的乾物比
-              </p>
-
-              <div class="result-block">
-                <table>
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>蛋白質</th>
-                      <th>脂肪</th>
-                      <th>碳水化合物</th>
-                      <th>纖維</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="bg-light">
-                      <td>比例建議</td>
-                      <td>45%以上</td>
-                      <td>25~45%</td>
-                      <td>25%以下</td>
-                      <td>1~5%</td>
-                    </tr>
-                    <tr>
-                      <td>飼料</td>
-                      <td :class="feed_dmd.protein_colorClass">{{ feed_dmd.dmb_protein }}%</td>
-                      <td :class="feed_dmd.fat_colorClass">{{ feed_dmd.dmb_fat }}%</td>
-                      <td :class="feed_dmd.carbohydrate_colorClass">{{ feed_dmd.dmb_carbohydrate }}%</td>
-                      <td :class="feed_dmd.fiber_colorClass">{{ feed_dmd.dmb_fiber }}%</td>
-                    </tr>
-                    <tr class="result">
-                      <td>計算結論</td>
-                      <td :class="feed_dmd.protein_colorClass">{{ feed_dmd.dmb_protein_result }}</td>
-                      <td :class="feed_dmd.fat_colorClass">{{ feed_dmd.dmb_fat_result }}</td>
-                      <td :class="feed_dmd.carbohydrate_colorClass">{{ feed_dmd.dmb_carbohydrate_result }}</td>
-                      <td :class="feed_dmd.fiber_colorClass">{{ feed_dmd.dmb_fiber_result }}</td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
-
-              <div class="pt-1 pb-1"></div>
 
             </div>
 
             <div class="row justify-content-center">
               <div class="Block--12">
-                <button class="btn-base mb-1 btn-toggle text-left" type="button" @click.prevent="openAllWetFood_result">
+                <button class="btn-base-outline mb-1 btn-toggle text-left" type="button" @click.prevent="openAllWetFood_result">
                   全濕食配方
                   <i class="icon fas fa-plus" v-if="!isOpenAllWetFood"></i>
                   <i class="icon fas fa-minus" v-else></i>
@@ -503,7 +509,7 @@
 
             <div class="row justify-content-center">
               <div class="Block--12">
-                <button class="btn-base mb-1 btn-toggle text-left" type="button"
+                <button class="btn-base-outline mb-1 btn-toggle text-left" type="button"
                   @click.prevent="openHalfWetFood_result">
                   半濕食配方
                   <i class="icon fas fa-plus" v-if="!isOpenHalfWetFood"></i>
