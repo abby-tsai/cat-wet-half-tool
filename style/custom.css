@@ -6513,7 +6513,7 @@ start. content*/
   transition: .5s ease;
 }
 
-.fixed-btn button {
+.fixed-btn .btn {
   width: 25%;
   text-align: center;
   height: 48px;

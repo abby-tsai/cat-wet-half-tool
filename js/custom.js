@@ -4,37 +4,46 @@ feather.replace({ width: '1em', height: '1em' })
 // end
 
 // ====== scrollTo
-$(document).ready(function () {
+// $(document).ready(function () {
 
-  function scrollToElement(element) {
-    $(element).get(0).scrollIntoView({
-      block: "start",
-      behavior: "smooth"
-    });
-  }
+//   function scrollToElement(element) {
+//     $(element).get(0).scrollIntoView({
+//       block: "start",
+//       behavior: "smooth"
+//     });
+//   }
 
-  $("#to_section_1").on("click", function () {
-    var elemq = $("#section_1");
-    scrollToElement(elemq);
-  });
+//   $("#to_section_1").on("click", function () {
+//     var elemq = $("#section_1");
+//     scrollToElement(elemq);
+//   });
 
-  $("#to_section_2").on("click", function () {
-    var elemq = $("#section_2");
-    scrollToElement(elemq);
-  });
+//   $("#to_section_2").on("click", function () {
+//     var elemq = $("#section_2");
+//     scrollToElement(elemq);
+//   });
 
-  $("#to_section_3").on("click", function () {
-    var elemq = $("#section_3");
-    scrollToElement(elemq);
-  });
+//   $("#to_section_3").on("click", function () {
+//     var elemq = $("#section_3");
+//     scrollToElement(elemq);
+//   });
 
-  $("#to_section_4").on("click", function () {
-    var elemq = $("#section_4");
-    scrollToElement(elemq);
-  });
+//   $("#to_section_4").on("click", function () {
+//     var elemq = $("#section_4");
+//     scrollToElement(elemq);
+//   });
+// });
 
 
+
+$("a[href^='#']").click(function (e) {
+  e.preventDefault();
+  var position = $($(this).attr("href")).offset().top;
+  $("body, html").animate({
+    scrollTop: position
+  } /* speed */);
 });
+
 // end
 
 // ====== 浮動 button 滑到某高度出現 滑到某高度消失
