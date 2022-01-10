@@ -21,7 +21,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="manifest" href="favicon/manifest.json">
+  <!-- <link rel="manifest" href="favicon/manifest.json"> -->
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
@@ -33,13 +33,6 @@
 </head>
 
 <body>
-
-  <div class="fixed-btn">
-    <a class="btn" href="#section_1">貓咪狀態</a>
-    <a class="btn" href="#section_2">罐頭營養</a>
-    <a class="btn" href="#section_3">飼料營養</a>
-    <a class="btn" href="#section_4">計算結果</a>
-  </div>
 
   <div class="row justify-content-center">
     <div class="Block--12 Block--md-7">
@@ -54,6 +47,14 @@
       </header>
 
       <section id="app" class="form-section">
+
+        <div class="fixed-btn">
+          <a class="btn" href="#section_1">step.1<br>貓咪狀態</a>
+          <a class="btn" href="#section_2">step.2<br>罐頭營養</a>
+          <a class="btn" href="#section_3">step.3<br>飼料營養</a>
+          <a class="btn" href="#section_4">計算結果</a>
+          <button type="button" class="btn" @click="change('isOpenSaveBlock')">配方清單</button>
+        </div>
 
         <div id="section_1"></div>
 
@@ -430,7 +431,8 @@
 
             <div class="row justify-content-center">
               <div class="Block--12">
-                <button class="btn-base-outline mb-1 btn-toggle text-left" type="button" @click.prevent="openAllWetFood_result">
+                <button class="btn-base-outline mb-1 btn-toggle text-left" type="button"
+                  @click.prevent="openAllWetFood_result">
                   全濕食配方
                   <i class="icon fas fa-plus" v-if="!isOpenAllWetFood"></i>
                   <i class="icon fas fa-minus" v-else></i>
@@ -505,6 +507,13 @@
 
               <div class="pt-1 pb-1"></div>
 
+              <button type="button" class="btn-darkgreen btn-small" @click.prevent="addToSaveList">
+                儲存配方
+                <i data-feather="save" class="position-relative top-3 left-5"></i>
+              </button>
+
+              <div class="pt-1 pb-2"></div>
+
             </div>
 
             <div class="row justify-content-center">
@@ -541,9 +550,9 @@
 
               <p class="text-center">
                 每日需吃
-                <span class="px-1 font-size-18"
+                <span class="font-size-18"
                   style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                  halfWetFood_Info.canDaliyNumber }}</span>個罐頭 + <span class="px-1 font-size-18"
+                  halfWetFood_Info.canDaliyNumber }}</span>個罐頭 + <span class="font-size-18"
                   style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
                   halfWetFood_Info.feed_g
                   }}</span> g 飼料<br>才能達到貓咪每日所需的熱量。
@@ -607,6 +616,14 @@
               </div>
 
               <div class="pt-1 pb-1"></div>
+
+              <button type="button" class="btn-darkgreen btn-small" @click.prevent="addToSaveList">
+                儲存配方
+                <i data-feather="save" class="position-relative top-3 left-5"></i>
+              </button>
+
+              <div class="pt-1 pb-2"></div>
+
             </div>
 
             <div class="pt-1"></div>
@@ -624,6 +641,126 @@
 
         </section>
 
+        <div class="save-list-block" :class="{'isOpen' : isOpenSaveBlock}">
+          <p class="font-size-20 m-0" style="font-weight: 600;"> 儲存的配方清單 </p>
+
+          <button type="button" class="btn-close" @click="change('isOpenSaveBlock')">
+            <span class="icon"><i data-feather="x"></i></span></button>
+
+          <div class="pt-1 pb-1"></div>
+
+          <div class="save-list">
+            <ul>
+              <li v-for="(item, key ) in localData" @key="key">
+
+                <!-- 全濕食的罐頭數 > 0，並且半濕食的飼料克數 < 0，才會顯示。(因為半濕食還沒有選擇要吃多少顆罐頭，所以飼料克數 < 0) -->
+                <div v-if="item.allWetFood_Info_items && !item.halfWetFood_Info_feed_g">
+                  <p class="text-center">
+                    每日需吃<span class="px-1 font-size-18"
+                      style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
+                      item.allWetFood_Info_items }}</span>顆罐頭，<br>才能達到貓咪每日所需的熱量。
+                  </p>
+                  <div class="result-block mb-1">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>蛋白質</th>
+                          <th>脂肪</th>
+                          <th>水分</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="bg-light">
+                          <td>每日建議</td>
+                          <td>{{ `${item.cat_Info_daliyProtein_min} ~ ${item.cat_Info_daliyProtein_max}g` }}</td>
+                          <td>{{ `${item.cat_Info_daliyFat_min} ~ ${item.cat_Info_daliyFat_max}g` }}</td>
+                          <td>{{ `${item.cat_Info_daliyWater_min} ~ ${item.cat_Info_daliyWater_max}ml` }}</td>
+                        </tr>
+                        <tr>
+                          <td>{{ item.allWetFood_Info_items }}顆罐頭</td>
+                          <td>{{ item.allWetFood_Info_Protein_number }}g</td>
+                          <td>{{ item.allWetFood_Info_Fat_number }}g</td>
+                          <td>{{ item.allWetFood_Info_Water_number }}ml</td>
+                        </tr>
+                        <tr class="result">
+                          <td>計算結論</td>
+                          <td>{{ item.allWetFood_Info_Protein_result }}</td>
+                          <td>{{ item.allWetFood_Info_Fat_result }}</td>
+                          <td>{{ item.allWetFood_Info_Water_result }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- 半濕食的飼料克數 > 0，才會顯示。(因為已選擇半濕食要吃多少顆罐頭，所以飼料克數 > 0) -->
+                <div v-if="item.halfWetFood_Info_feed_g">
+                  <p class="text-center">
+                    每日需吃
+                    <span class="font-size-18"
+                      style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
+                        item.halfWetFood_Info_canDaliyNumber }}</span>個罐頭 + <span class="font-size-18"
+                      style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
+                        item.halfWetFood_Info_feed_g
+                      }}</span> g 飼料<br>才能達到貓咪每日所需的熱量。
+                  </p>
+                  <div class="result-block mb-2">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>蛋白質</th>
+                          <th>脂肪</th>
+                          <th>水分</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="bg-light">
+                          <td>每日建議</td>
+                          <td>{{ `${item.cat_Info_daliyProtein_min} ~ ${item.cat_Info_daliyProtein_max}g` }}</td>
+                          <td>{{ `${item.cat_Info_daliyFat_min} ~ ${item.cat_Info_daliyFat_max}g` }}</td>
+                          <td>{{ `${item.cat_Info_daliyWater_min} ~ ${item.cat_Info_daliyWater_max}ml` }}</td>
+                        </tr>
+                        <tr>
+                          <td>罐頭 + 飼料</td>
+                          <td>{{ item.halfWetFood_Info_Protein_number }}g</td>
+                          <td>{{ item.halfWetFood_Info_Fat_number }}g</td>
+                          <td>{{ item.halfWetFood_Info_Water_number }}ml</td>
+                        </tr>
+                        <tr class="result">
+                          <td>計算結論</td>
+                          <td>{{ item.halfWetFood_Info_Protein_result }}</td>
+                          <td>{{ item.halfWetFood_Info_Fat_result }}</td>
+                          <td>{{ item.halfWetFood_Info_Water_result }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="delete-btn">
+                  <button type="button" class="btn" @click.prevent="spliceSaveList(key)">
+                    <i class="fas fa-trash-alt"></i>
+                    刪除
+                  </button>
+                </div>
+
+                <p style="color:#009688; border-bottom: 1px solid;">備註：<br>{{ item.note }}</p>
+                <div class="input-box">
+                  <input type="text" placeholder="修改備註.." v-model="saveListNoteTxt" v-on:keyup.enter="addToNote(key)">
+                  <div class="input-btn">
+                    <button type="button" class="btn" @click.prevent="addToNote(key)">
+                      <i class="fas fa-pencil-alt"></i>
+                    </button>
+                  </div>
+                </div>
+
+              </li>
+            </ul>
+          </div>
+
+        </div>
 
       </section>
     </div>

@@ -1,30 +1,4 @@
 
-// ====== feather icons
-feather.replace({ width: '1em', height: '1em' })
-// end
-
-// ====== scrollTo
-$("a[href^='#']").click(function (e) {
-  e.preventDefault();
-  var position = $($(this).attr("href")).offset().top;
-  $("body, html").animate({
-    scrollTop: position
-  } /* speed */);
-});
-// end
-
-// ====== 浮動 button 滑到某高度出現 滑到某高度消失
-$(function () {
-  $(window).scroll(function () {
-    if ($(window).scrollTop() > 300) {
-      $(".fixed-btn").addClass('show');
-    }
-    else {
-      $(".fixed-btn").removeClass('show');
-    }
-  });
-});
-// end
 
 const App = {
   data() {
@@ -37,6 +11,7 @@ const App = {
       isOpenHalfWetFood: false,
       isOpenAllMath: false,
       isOpenCatInfoAndDmb: false,
+      isOpenSaveBlock: false,
 
       // 勾選貓咪目前狀態
       cat_kitten_Status: ["10週大", "20週大", "30週大", "40週大"],
@@ -212,6 +187,11 @@ const App = {
         },
       },
 
+      // local storage 配方data
+      localData: JSON.parse(localStorage.getItem('data')) || [],
+
+      // 配方備註
+      saveListNoteTxt: '',
     }
   },
 
@@ -231,6 +211,10 @@ const App = {
 
     reset() {
       window.location.reload();
+    },
+
+    change(key) {
+      this[key] = !this[key];
     },
 
     closeAllMath() {
@@ -358,7 +342,7 @@ const App = {
 
       // 判斷蛋白質
       if (this.can_dmd.dmb_protein < 45) {
-        this.can_dmd.dmb_protein_result = '過低';
+        this.can_dmd.dmb_protein_result = '低';
         this.can_dmd.protein_colorClass = [];
         this.can_dmd.protein_colorClass.push(this.can_dmd.colors[1]);
       };
@@ -368,14 +352,14 @@ const App = {
         this.can_dmd.protein_colorClass.push(this.can_dmd.colors[2]);
       };
       if (this.can_dmd.dmb_protein > 65) {
-        this.can_dmd.dmb_protein_result = '過高';
+        this.can_dmd.dmb_protein_result = '高';
         this.can_dmd.protein_colorClass = [];
         this.can_dmd.protein_colorClass.push(this.can_dmd.colors[0]);
       };
 
       // 判斷脂肪
       if (this.can_dmd.dmb_fat < 25) {
-        this.can_dmd.dmb_fat_result = '過低';
+        this.can_dmd.dmb_fat_result = '低';
         this.can_dmd.fat_colorClass = [];
         this.can_dmd.fat_colorClass.push(this.can_dmd.colors[1]);
       };
@@ -385,14 +369,14 @@ const App = {
         this.can_dmd.fat_colorClass.push(this.can_dmd.colors[2]);
       };
       if (this.can_dmd.dmb_fat > 45) {
-        this.can_dmd.dmb_fat_result = '過高';
+        this.can_dmd.dmb_fat_result = '高';
         this.can_dmd.fat_colorClass = [];
         this.can_dmd.fat_colorClass.push(this.can_dmd.colors[0]);
       };
 
       // 判斷碳水化合物
       if (this.can_dmd.dmb_carbohydrate <= 0) {
-        this.can_dmd.dmb_carbohydrate_result = '過低';
+        this.can_dmd.dmb_carbohydrate_result = '低';
         this.can_dmd.carbohydrate_colorClass = [];
         this.can_dmd.carbohydrate_colorClass.push(this.can_dmd.colors[1]);
       };
@@ -402,14 +386,14 @@ const App = {
         this.can_dmd.carbohydrate_colorClass.push(this.can_dmd.colors[2]);
       };
       if (this.can_dmd.dmb_carbohydrate > 10) {
-        this.can_dmd.dmb_carbohydrate_result = '過高';
+        this.can_dmd.dmb_carbohydrate_result = '高';
         this.can_dmd.carbohydrate_colorClass = [];
         this.can_dmd.carbohydrate_colorClass.push(this.can_dmd.colors[0]);
       }
 
       // 判斷纖維
       if (this.can_dmd.dmb_fiber < 1) {
-        this.can_dmd.dmb_fiber_result = '過低';
+        this.can_dmd.dmb_fiber_result = '低';
         this.can_dmd.fiber_colorClass = [];
         this.can_dmd.fiber_colorClass.push(this.can_dmd.colors[1]);
       };
@@ -419,7 +403,7 @@ const App = {
         this.can_dmd.fiber_colorClass.push(this.can_dmd.colors[2]);
       };
       if (this.can_dmd.dmb_fiber > 5) {
-        this.can_dmd.dmb_fiber_result = '過高';
+        this.can_dmd.dmb_fiber_result = '高';
         this.can_dmd.fiber_colorClass = [];
         this.can_dmd.fiber_colorClass.push(this.can_dmd.colors[0]);
       }
@@ -463,7 +447,7 @@ const App = {
         this.allWetFood_Info.Protein.colorClass.push(this.can_dmd.colors[2]);
       };
       if (this.allWetFood_Info.Protein.number > this.cat_Info.daliyProtein.max) {
-        this.allWetFood_Info.Protein.result = '過高';
+        this.allWetFood_Info.Protein.result = '高';
         this.allWetFood_Info.Protein.isLess = false;
         this.allWetFood_Info.Protein.isOver = true;
         this.allWetFood_Info.Protein.colorClass = [];
@@ -486,7 +470,7 @@ const App = {
         this.allWetFood_Info.Fat.colorClass.push(this.can_dmd.colors[2]);
       };
       if (this.allWetFood_Info.Fat.number > this.cat_Info.daliyFat.max) {
-        this.allWetFood_Info.Fat.result = '過高';
+        this.allWetFood_Info.Fat.result = '高';
         this.allWetFood_Info.Fat.isLess = false;
         this.allWetFood_Info.Fat.isOver = true;
         this.allWetFood_Info.Fat.colorClass = [];
@@ -509,7 +493,7 @@ const App = {
         this.allWetFood_Info.Water.colorClass.push(this.can_dmd.colors[2]);
       };
       if (this.allWetFood_Info.Water.number > this.cat_Info.daliyWater.over) {
-        this.allWetFood_Info.Water.result = '過高';
+        this.allWetFood_Info.Water.result = '高';
         this.allWetFood_Info.Water.isLess = false;
         this.allWetFood_Info.Water.isOver = true;
         this.allWetFood_Info.Water.colorClass = [];
@@ -565,7 +549,7 @@ const App = {
 
       // 判斷蛋白質
       if (this.feed_dmd.dmb_protein < 45) {
-        this.feed_dmd.dmb_protein_result = '過低';
+        this.feed_dmd.dmb_protein_result = '低';
         this.feed_dmd.protein_colorClass = [];
         this.feed_dmd.protein_colorClass.push(this.feed_dmd.colors[1]);
       };
@@ -575,14 +559,14 @@ const App = {
         this.feed_dmd.protein_colorClass.push(this.feed_dmd.colors[2]);
       };
       if (this.feed_dmd.dmb_protein > 65) {
-        this.feed_dmd.dmb_protein_result = '過高';
+        this.feed_dmd.dmb_protein_result = '高';
         this.feed_dmd.protein_colorClass = [];
         this.feed_dmd.protein_colorClass.push(this.feed_dmd.colors[0]);
       };
 
       // 判斷脂肪
       if (this.feed_dmd.dmb_fat < 25) {
-        this.feed_dmd.dmb_fat_result = '過低';
+        this.feed_dmd.dmb_fat_result = '低';
         this.feed_dmd.fat_colorClass = [];
         this.feed_dmd.fat_colorClass.push(this.feed_dmd.colors[1]);
       };
@@ -592,14 +576,14 @@ const App = {
         this.feed_dmd.fat_colorClass.push(this.feed_dmd.colors[2]);
       };
       if (this.feed_dmd.dmb_fat > 45) {
-        this.feed_dmd.dmb_fat_result = '過高';
+        this.feed_dmd.dmb_fat_result = '高';
         this.feed_dmd.fat_colorClass = [];
         this.feed_dmd.fat_colorClass.push(this.feed_dmd.colors[0]);
       };
 
       // 判斷碳水化合物
       if (this.feed_dmd.dmb_carbohydrate <= 0) {
-        this.feed_dmd.dmb_carbohydrate_result = '過低';
+        this.feed_dmd.dmb_carbohydrate_result = '低';
         this.feed_dmd.carbohydrate_colorClass = [];
         this.feed_dmd.carbohydrate_colorClass.push(this.feed_dmd.colors[1]);
       };
@@ -609,14 +593,14 @@ const App = {
         this.feed_dmd.carbohydrate_colorClass.push(this.feed_dmd.colors[2]);
       };
       if (this.feed_dmd.dmb_carbohydrate > 25) {
-        this.feed_dmd.dmb_carbohydrate_result = '過高';
+        this.feed_dmd.dmb_carbohydrate_result = '高';
         this.feed_dmd.carbohydrate_colorClass = [];
         this.feed_dmd.carbohydrate_colorClass.push(this.feed_dmd.colors[0]);
       }
 
       // 判斷纖維
       if (this.feed_dmd.dmb_fiber < 1) {
-        this.feed_dmd.dmb_fiber_result = '過低';
+        this.feed_dmd.dmb_fiber_result = '低';
         this.feed_dmd.fiber_colorClass = [];
         this.feed_dmd.fiber_colorClass.push(this.feed_dmd.colors[1]);
       };
@@ -626,7 +610,7 @@ const App = {
         this.feed_dmd.fiber_colorClass.push(this.feed_dmd.colors[2]);
       };
       if (this.feed_dmd.dmb_fiber > 5) {
-        this.feed_dmd.dmb_fiber_result = '過高';
+        this.feed_dmd.dmb_fiber_result = '高';
         this.feed_dmd.fiber_colorClass = [];
         this.feed_dmd.fiber_colorClass.push(this.feed_dmd.colors[0]);
       }
@@ -695,7 +679,7 @@ const App = {
         this.halfWetFood_Info.Protein.colorClass.push(this.feed_dmd.colors[2]);
       };
       if (this.halfWetFood_Info.Protein.number > this.cat_Info.daliyProtein.max) {
-        this.halfWetFood_Info.Protein.result = '過高';
+        this.halfWetFood_Info.Protein.result = '高';
         this.halfWetFood_Info.Protein.isLess = false;
         this.halfWetFood_Info.Protein.isOver = true;
         this.halfWetFood_Info.Protein.colorClass = [];
@@ -718,7 +702,7 @@ const App = {
         this.halfWetFood_Info.Fat.colorClass.push(this.feed_dmd.colors[2]);
       };
       if (this.halfWetFood_Info.Fat.number > this.cat_Info.daliyFat.max) {
-        this.halfWetFood_Info.Fat.result = '過高';
+        this.halfWetFood_Info.Fat.result = '高';
         this.halfWetFood_Info.Fat.isLess = false;
         this.halfWetFood_Info.Fat.isOver = true;
         this.halfWetFood_Info.Fat.colorClass = [];
@@ -741,7 +725,7 @@ const App = {
         this.halfWetFood_Info.Water.colorClass.push(this.feed_dmd.colors[2]);
       };
       if (this.halfWetFood_Info.Water.number > this.cat_Info.daliyWater.over) {
-        this.halfWetFood_Info.Water.result = '過高';
+        this.halfWetFood_Info.Water.result = '高';
         this.halfWetFood_Info.Water.isLess = false;
         this.halfWetFood_Info.Water.isOver = true;
         this.halfWetFood_Info.Water.colorClass = [];
@@ -759,11 +743,126 @@ const App = {
       }
     },
 
+    // 
     openCatInfoAndDmb() {
       this.isOpenCatInfoAndDmb = !this.isOpenCatInfoAndDmb;
-    }
+    },
+
+    // 把要儲存的配方加入清單 (local storage)
+    addToSaveList() {
+
+      // 建立一個要儲存的資料的data
+      let obj = {
+
+        cat_Info_daliyProtein_min: this.cat_Info.daliyProtein.min,
+        cat_Info_daliyProtein_max: this.cat_Info.daliyProtein.max,
+        cat_Info_daliyFat_min: this.cat_Info.daliyFat.min,
+        cat_Info_daliyFat_max: this.cat_Info.daliyFat.max,
+        cat_Info_daliyWater_min: this.cat_Info.daliyWater.min,
+        cat_Info_daliyWater_max: this.cat_Info.daliyWater.max,
+
+        allWetFood_Info_items: this.allWetFood_Info.items,
+        allWetFood_Info_Protein_number: this.allWetFood_Info.Protein.number,
+        allWetFood_Info_Fat_number: this.allWetFood_Info.Fat.number,
+        allWetFood_Info_Water_number: this.allWetFood_Info.Water.number,
+
+        allWetFood_Info_Protein_result: this.allWetFood_Info.Protein.result,
+        allWetFood_Info_Fat_result: this.allWetFood_Info.Fat.result,
+        allWetFood_Info_Water_result: this.allWetFood_Info.Water.result,
+
+
+        halfWetFood_Info_canDaliyNumber: this.halfWetFood_Info.canDaliyNumber,
+        halfWetFood_Info_feed_g: this.halfWetFood_Info.feed_g,
+        halfWetFood_Info_Protein_number: this.halfWetFood_Info.Protein.number,
+        halfWetFood_Info_Fat_number: this.halfWetFood_Info.Fat.number,
+        halfWetFood_Info_Water_number: this.halfWetFood_Info.Water.number,
+
+        halfWetFood_Info_Protein_result: this.halfWetFood_Info.Protein.result,
+        halfWetFood_Info_Fat_result: this.halfWetFood_Info.Fat.result,
+        halfWetFood_Info_Water_result: this.halfWetFood_Info.Water.result,
+
+        note: '',
+      }
+
+      // 將要儲存的 data 新增到 localData
+      this.localData.unshift(obj);
+
+      // 加到local storage
+      localStorage.setItem('data', JSON.stringify(this.localData));
+
+    },
+
+    // 把配方備註加入 local storage
+    addToNote(itemkey) {
+
+      // console.log(itemkey);
+
+      // 用 key 的方式試試看
+      const that = this;
+      that.localData.forEach(function (value, index, array) {
+        console.log(index);
+        if (itemkey === index) {
+          // console.log(that.localData[index].note);
+          that.localData[index].note = that.saveListNoteTxt;
+        }
+      });
+
+      // 傳到 localStorage
+      localStorage.setItem('data', JSON.stringify(this.localData));
+
+      // 輸入完畢，input內的文字移除
+      this.saveListNoteTxt = '';
+    },
+
+    // 刪除配方
+    spliceSaveList(itemkey) {
+
+      // console.log(itemkey);
+
+      // 這個如果不加，會出現錯誤...不知道為何??
+      const that = this;
+      that.localData.forEach(function (value, index, array) {
+        // console.log(index);
+        if (itemkey === index) {
+          that.localData.splice(itemkey, 1);
+        }
+      });
+      
+      // 傳到 localStorage
+      localStorage.setItem('data', JSON.stringify(this.localData));
+
+    },
 
   }
 }
 Vue.createApp(App).mount('#app');
+
+
+
+// ====== feather icons
+feather.replace({ width: '1em', height: '1em' })
+// end
+
+// ====== scrollTo
+$("a[href^='#']").click(function (e) {
+  e.preventDefault();
+  var position = $($(this).attr("href")).offset().top;
+  $("body, html").animate({
+    scrollTop: position
+  } /* speed */);
+});
+// end
+
+// ====== 浮動 button 滑到某高度出現 滑到某高度消失
+$(function () {
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > 300) {
+      $(".fixed-btn").addClass('show');
+    }
+    else {
+      $(".fixed-btn").removeClass('show');
+    }
+  });
+});
+// end
 
