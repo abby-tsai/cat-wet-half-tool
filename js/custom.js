@@ -749,10 +749,14 @@ const App = {
     },
 
     // 把要儲存的配方加入清單 (local storage)
-    addToSaveList() {
+    addToSaveList(whichBtn) {
+
 
       // 建立一個要儲存的資料的data
       let obj = {
+
+        // 判斷是按了全濕還是半濕
+        which_Button: whichBtn,
 
         cat_Info_daliyProtein_min: this.cat_Info.daliyProtein.min,
         cat_Info_daliyProtein_max: this.cat_Info.daliyProtein.max,
@@ -800,7 +804,7 @@ const App = {
       // 用 key 的方式試試看
       const that = this;
       that.localData.forEach(function (value, index, array) {
-        console.log(index);
+        // console.log(index);
         if (itemkey === index) {
           // console.log(that.localData[index].note);
           that.localData[index].note = that.saveListNoteTxt;
@@ -822,15 +826,22 @@ const App = {
       // 這個如果不加，會出現錯誤...不知道為何??
       const that = this;
       that.localData.forEach(function (value, index, array) {
-        // console.log(index);
         if (itemkey === index) {
+          // console.log(index);
           that.localData.splice(itemkey, 1);
         }
       });
-      
+
       // 傳到 localStorage
       localStorage.setItem('data', JSON.stringify(this.localData));
 
+    },
+
+    // 是否開啟修改備註input
+    openEditNote(item) {
+      // const element = evt.target.closest(".save-list");
+      console.log(item);
+      // element.queryselector('.input-box').classList.add('active');
     },
 
   }

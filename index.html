@@ -480,6 +480,15 @@
                 </table>
               </div>
 
+              <div class="text-center">
+                <button type="button" class="btn-blue-outline-2 btn-small" @click.prevent="addToSaveList('allWet')">
+                  儲存配方
+                  <i class="fas fa-save"></i>
+                </button>
+              </div>
+
+              <div class="pt-1 pb-1"></div>
+
               <div class="warning-text blue" v-if="allWetFood_Info.Protein.isLess">
                 <i class="icon fas fa-exclamation-triangle"></i>
                 每日的蛋白質攝取不足，不建議作為主食！
@@ -504,13 +513,6 @@
                 <i class="icon fas fa-exclamation-triangle"></i>
                 每日的水分攝取過高，請注意！
               </div>
-
-              <div class="pt-1 pb-1"></div>
-
-              <button type="button" class="btn-darkgreen btn-small" @click.prevent="addToSaveList">
-                儲存配方
-                <i data-feather="save" class="position-relative top-3 left-5"></i>
-              </button>
 
               <div class="pt-1 pb-2"></div>
 
@@ -590,6 +592,15 @@
                 </table>
               </div>
 
+              <div class="text-center">
+                <button type="button" class="btn-blue-outline-2 btn-small" @click.prevent="addToSaveList('halfWet')">
+                  儲存配方
+                  <i class="fas fa-save"></i>
+                </button>
+              </div>
+
+              <div class="pt-1 pb-1"></div>
+
               <div class="warning-text blue" v-if="halfWetFood_Info.Protein.isLess">
                 <i class="icon fas fa-exclamation-triangle"></i>
                 每日的蛋白質攝取不足，不建議作為主食！
@@ -614,13 +625,6 @@
                 <i class="icon fas fa-exclamation-triangle"></i>
                 每日的水分攝取過高，請注意！
               </div>
-
-              <div class="pt-1 pb-1"></div>
-
-              <button type="button" class="btn-darkgreen btn-small" @click.prevent="addToSaveList">
-                儲存配方
-                <i data-feather="save" class="position-relative top-3 left-5"></i>
-              </button>
 
               <div class="pt-1 pb-2"></div>
 
@@ -653,8 +657,8 @@
             <ul>
               <li v-for="(item, key ) in localData" @key="key">
 
-                <!-- 全濕食的罐頭數 > 0，並且半濕食的飼料克數 < 0，才會顯示。(因為半濕食還沒有選擇要吃多少顆罐頭，所以飼料克數 < 0) -->
-                <div v-if="item.allWetFood_Info_items && !item.halfWetFood_Info_feed_g">
+                <!-- 利用按鈕的參數，判斷是否為全濕食 -->
+                <div v-if="item.which_Button === 'allWet'">
                   <p class="text-center">
                     每日需吃<span class="px-1 font-size-18"
                       style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
@@ -694,15 +698,15 @@
                   </div>
                 </div>
 
-                <!-- 半濕食的飼料克數 > 0，才會顯示。(因為已選擇半濕食要吃多少顆罐頭，所以飼料克數 > 0) -->
-                <div v-if="item.halfWetFood_Info_feed_g">
+                <!-- 利用按鈕的參數，判斷是否為半濕食 -->
+                <div v-if="item.which_Button === 'halfWet'">
                   <p class="text-center">
                     每日需吃
                     <span class="font-size-18"
                       style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                        item.halfWetFood_Info_canDaliyNumber }}</span>個罐頭 + <span class="font-size-18"
+                      item.halfWetFood_Info_canDaliyNumber }}</span>個罐頭 + <span class="font-size-18"
                       style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                        item.halfWetFood_Info_feed_g
+                      item.halfWetFood_Info_feed_g
                       }}</span> g 飼料<br>才能達到貓咪每日所需的熱量。
                   </p>
                   <div class="result-block mb-2">
@@ -746,12 +750,24 @@
                   </button>
                 </div>
 
-                <p style="color:#009688; border-bottom: 1px solid;">備註：<br>{{ item.note }}</p>
+                <div class="note-block" style="border-bottom: 1px solid #009688;">
+                  <p class="m-0">
+                    <span class="label" style="color:#009688;">
+                      備註：
+                    </span>
+                    {{ item.note }}
+                  </p>
+                  <!-- 編輯用的，可是還不會改單獨的文字 
+                    <button type="button" class="btn-edit" @click.prevent="openEditNote(item)">
+                    <i class="fas fa-pencil-alt"></i>
+                  </button> -->
+                </div>
+
                 <div class="input-box">
-                  <input type="text" placeholder="修改備註.." v-model="saveListNoteTxt" v-on:keyup.enter="addToNote(key)">
+                  <input type="text" placeholder="修改備註.." v-model="saveListNoteTxt" @keyUp.enter="addToNote(key)">
                   <div class="input-btn">
                     <button type="button" class="btn" @click.prevent="addToNote(key)">
-                      <i class="fas fa-pencil-alt"></i>
+                      OK
                     </button>
                   </div>
                 </div>
