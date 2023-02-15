@@ -633,9 +633,9 @@ start. content*/
 	top: -52px;
 	z-index: 9;
 	width: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
+	// display: -webkit-box;
+	// display: -ms-flexbox;
+	display: none;
 	background: rgba(0, 0, 0, 0.7);
 	transition: .5s ease;
 	.btn {
@@ -720,7 +720,7 @@ start. content*/
 				margin-bottom: 10px;
 				input {
 					border: 0;
-					background: rgba(205, 174, 63, 0.15);
+					background: #efefef;
 					color: #333;
 					border-radius: 0;
 					-webkit-border-radius: 0;
@@ -765,6 +765,13 @@ start. content*/
 	}
 }
 
+.main-wrapper {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	margin: 30px 0;
+	overflow: hidden;
+}
+
 @media (max-width: $screen-xxxl-max) {
 }
 
@@ -778,6 +785,13 @@ start. content*/
 }
 
 @media (max-width: $screen-md-max) {
+	.main-wrapper {
+		margin: 0;
+		border-radius: 0;
+	}
+	.fixed-btn {
+		display: flex
+	}
 }
 
 @media (max-width: $screen-sm-max) {
