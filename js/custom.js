@@ -867,7 +867,7 @@ $("a[href^='#']").click(function (e) {
 // ====== 浮動 button 滑到某高度出現 滑到某高度消失
 $(function () {
   $(window).scroll(function () {
-    if ($(window).scrollTop() > 300) {
+    if ($(window).scrollTop() > 200) {
       $(".fixed-btn").addClass('show');
     }
     else {

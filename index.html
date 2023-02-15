@@ -27,7 +27,7 @@
   <meta name="theme-color" content="#ffffff">
   <!-- end. favicon -->
 
-  <title>貓食品分配工具</title>
+  <title>貓食配方所 ver.Vue3</title>
   <link href="style/all.min.css" rel="stylesheet">
   <link href="style/custom.css" rel="stylesheet">
 </head>
@@ -35,14 +35,10 @@
 <body>
 
   <div class="row justify-content-center">
-    <div class="Block--12 Block--md-6 Block--lg-4 Block--xl-3 " style="
-    box-shadow: 0 0 20px rgb(0 0 0 / 10%);
-    border-radius: 10px;
-    margin: 30px 0;
-    overflow: hidden;">
+    <div class="main-wrapper Block--12 Block--md-6 Block--lg-4 Block--xl-3">
 
       <header class="header text-center">
-        <h1 class="title">貓食品分配工具</h1>
+        <h1 class="title">貓食配方所</h1>
         <h2 class="subTitle">
           對貓咪食品的營養成分有疑慮？<br>
           對全濕食的費用苦惱？<br>
@@ -53,9 +49,9 @@
       <section id="app" class="form-section">
 
         <div class="fixed-btn">
-          <a class="btn" href="#section_1">step.1<br>貓咪狀態</a>
-          <a class="btn" href="#section_2">step.2<br>罐頭營養</a>
-          <a class="btn" href="#section_3">step.3<br>飼料營養</a>
+          <a class="btn" href="#section_1">貓咪狀態</a>
+          <a class="btn" href="#section_2">罐頭營養</a>
+          <a class="btn" href="#section_3">飼料營養</a>
           <a class="btn" href="#section_4">計算結果</a>
           <button type="button" class="btn" @click="change('isOpenSaveBlock')">配方清單</button>
         </div>
