@@ -34,323 +34,326 @@
 
 <body>
 
-  <div class="row justify-content-center">
-    <div class="main-wrapper Block--12 Block--md-6 Block--lg-4 Block--xl-3">
+  <div id="app">
+    <div class="row justify-content-center"
+      style="background-image: url(images/background.jpg); background-attachment: fixed; background-size: cover;">
 
-      <header class="header text-center">
-        <h1 class="title">貓食配方所</h1>
-        <h2 class="subTitle">
-          對貓咪食品的營養成分有疑慮？<br>
-          對全濕食的費用苦惱？<br>
-          無論全濕食或半濕食<br>
-          貓咪的每日所需熱量和營養在這裡！</h2>
-      </header>
+      <div class="main-wrapper Block--12 Block--md-6 Block--lg-4 Block--xl-3">
 
-      <section id="app" class="form-section">
+        <header class="header text-center">
+          <h1 class="title">貓食配方所</h1>
+          <h2 class="subTitle">
+            對貓咪食品的營養成分有疑慮？<br>
+            對全濕食的費用苦惱？<br>
+            無論全濕食或半濕食<br>
+            貓咪的每日所需熱量和營養在這裡！</h2>
+        </header>
 
-        <div class="fixed-btn">
-          <a class="btn" href="#section_1">貓咪狀態</a>
-          <a class="btn" href="#section_2">罐頭營養</a>
-          <a class="btn" href="#section_3">飼料營養</a>
-          <a class="btn" href="#section_4">計算結果</a>
-          <button type="button" class="btn" @click="change('isOpenSaveBlock')">配方清單</button>
-        </div>
+        <section class="form-section">
 
-        <div id="section_1"></div>
+          <div class="fixed-btn">
+            <a class="btn" href="#section_1">貓咪狀態</a>
+            <a class="btn" href="#section_2">罐頭營養</a>
+            <a class="btn" href="#section_3">飼料營養</a>
+            <a class="btn" href="#section_4">計算結果</a>
+            <button type="button" class="btn" @click="change('isOpenSaveBlock')">配方清單</button>
+          </div>
 
-        <section class="step_1_section">
+          <div id="section_1"></div>
 
-          <div class="step-text text-center mb-3">
-            <p>
-              <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP. 1</span>
-              <br>
-              請輸入貓咪的基本狀態
+          <section class="step_1_section">
+
+            <div class="step-text text-center mb-3">
+              <p>
+                <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP. 1</span>
+                <br>
+                請輸入貓咪的基本狀態
+              </p>
+            </div>
+
+            <p class="font-size-17 mb-1" style="font-weight: 600;">
+              請輸入貓咪的體重：
             </p>
-          </div>
 
-          <p class="font-size-17 mb-1" style="font-weight: 600;">
-            請輸入貓咪的體重：
-          </p>
-
-          <div class="row mb-2">
-            <div class="Block--12">
-              <div class="input-box">
-                <input type="text" placeholder="0" v-model="cat_Info.weight">
-                <span class="text-unit">kg</span>
-              </div>
-              <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
-                過瘦貓，請輸入理想體重。</span>
-            </div>
-          </div>
-
-          <p class="font-size-17 mb-1" style="font-weight: 600;">請勾選貓咪的目前狀態(擇一)：</p>
-
-          <div class="row mb-1">
-            <div class="Block--12">
-              <p class="mb-0 font-size-15" style="font-weight: 600;">– 幼貓</p>
-              <div class="radio-box" v-for="(kitten, key) in cat_kitten_Status" :key="'kitten' + key">
-                <input type="radio" :id="'kitten' + key" name="cat_Status" :value="kitten" v-model="cat_Info.status">
-                <label :for="'kitten' + key">{{ kitten }}</label>
+            <div class="row mb-2">
+              <div class="Block--12">
+                <div class="input-box">
+                  <input type="text" placeholder="0" v-model="cat_Info.weight">
+                  <span class="text-unit">kg</span>
+                </div>
+                <span class="font-size-15 d-block" style="font-weight: 400; margin-top: 5px; color: #ff5700;">需減重貓 or
+                  過瘦貓，請輸入理想體重。</span>
               </div>
             </div>
-          </div>
 
-          <div class="row mb-1">
-            <div class="Block--12">
-              <p class="mb-0 font-size-15" style="font-weight: 600;">– 成貓</p>
-              <div class="radio-box" v-for="(normal, key) in cat_normal_Status" :key="'normal' + key">
-                <input type="radio" :id="'normal' + key" name="cat_Status" :value="normal" v-model="cat_Info.status">
-                <label :for="'normal' + key">{{ normal }}</label>
-              </div>
-            </div>
-          </div>
+            <p class="font-size-17 mb-1" style="font-weight: 600;">請勾選貓咪的目前狀態(擇一)：</p>
 
-          <div class="row mb-1">
-            <div class="Block--12">
-              <p class="mb-0 font-size-15" style="font-weight: 600;">– 懷孕貓</p>
-              <div class="radio-box" v-for="(mother, key) in cat_mother_Status" :key="'mother' + key">
-                <input type="radio" :id="'mother' + key" name="cat_Status" :value="mother" v-model="cat_Info.status">
-                <label :for="'mother' + key">{{ mother }}</label>
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-        <div id="section_2"></div>
-
-        <section class="step_2_section">
-
-          <div class="step-text text-center mb-3">
-            <p>
-              <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP. 2</span><br>
-              挑選一種罐頭<br>
-              輸入營養成分和重量
-            </p>
-          </div>
-
-          <form action="">
-            <div class="row form-row">
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">罐頭重量</label>
-                  <input type="number" v-model="can_Nutrition.canWeight" placeholder="0">
-                  <span class="text-unit">g</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">蛋白質</label>
-                  <input type="number" v-model="can_Nutrition.Protein_p" placeholder="0">
-                  <span class="text-unit">%</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">脂肪</label>
-                  <input type="number" v-model="can_Nutrition.Fat_p" placeholder="0">
-                  <span class="text-unit">%</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">纖維</label>
-                  <input type="number" v-model="can_Nutrition.Fiber_p" placeholder="0">
-                  <span class="text-unit">%</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">灰份</label>
-                  <input type="number" v-model="can_Nutrition.Ash_p" placeholder="0">
-                  <span class="text-unit">%</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">水分</label>
-                  <input type="number" v-model="can_Nutrition.Water_p" placeholder="0">
-                  <span class="text-unit">%</span>
+            <div class="row mb-1">
+              <div class="Block--12">
+                <p class="mb-0 font-size-15" style="font-weight: 600;">– 幼貓</p>
+                <div class="radio-box" v-for="(kitten, key) in cat_kitten_Status" :key="'kitten' + key">
+                  <input type="radio" :id="'kitten' + key" name="cat_Status" :value="kitten" v-model="cat_Info.status">
+                  <label :for="'kitten' + key">{{ kitten }}</label>
                 </div>
               </div>
             </div>
-          </form>
 
-        </section>
-
-        <div id="section_3"></div>
-
-        <section class="step_3_section">
-          <div class="step-text text-center mb-3">
-            <p>
-              <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP. 3</span><br>
-              挑選一種飼料<br>
-              輸入營養成分和熱量
-            </p>
-          </div>
-
-          <form action="">
-            <div class="row form-row">
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">飼料1公斤的熱量</label>
-                  <input type="number" v-model="feed_Nutrition.feed_1KG_Kcal" placeholder="0">
-                  <span class="text-unit">kcal</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">蛋白質</label>
-                  <input type="number" v-model="feed_Nutrition.Protein_p" placeholder="0">
-                  <span class="text-unit">%</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">脂肪</label>
-                  <input type="number" v-model="feed_Nutrition.Fat_p" placeholder="0">
-                  <span class="text-unit">%</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">纖維</label>
-                  <input type="number" v-model="feed_Nutrition.Fiber_p" placeholder="0">
-                  <span class="text-unit">%</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">灰份</label>
-                  <input type="number" v-model="feed_Nutrition.Ash_p" placeholder="0">
-                  <span class="text-unit">%</span>
-                </div>
-              </div>
-              <div class="Block--6">
-                <div class="input-box group mb-1">
-                  <label for="">水分</label>
-                  <input type="number" v-model="feed_Nutrition.Water_p" placeholder="0">
-                  <span class="text-unit">%</span>
+            <div class="row mb-1">
+              <div class="Block--12">
+                <p class="mb-0 font-size-15" style="font-weight: 600;">– 成貓</p>
+                <div class="radio-box" v-for="(normal, key) in cat_normal_Status" :key="'normal' + key">
+                  <input type="radio" :id="'normal' + key" name="cat_Status" :value="normal" v-model="cat_Info.status">
+                  <label :for="'normal' + key">{{ normal }}</label>
                 </div>
               </div>
             </div>
-          </form>
-        </section>
 
-        <div id="section_4"></div>
-
-        <section class="step_4_section">
-
-          <div class="row mb-1">
-            <div class="Block--12">
-              <button class="btn-base" type="button" @click.prevent="mathAll">
-                開始計算
-                <i data-feather="check-circle" class="position-relative top-3 left-5"></i>
-              </button>
-            </div>
-          </div>
-
-          <div v-if="isOpenAllMath">
-
-            <div class="step_1_block">
-
-              <div class="row justify-content-center">
-                <div class="Block--12">
-                  <button class="btn-base-outline mb-1 btn-toggle text-left" type="button"
-                    @click.prevent="openCatInfoAndDmb">
-                    貓咪每日所需 & 罐頭飼料乾物比
-                    <i class="icon fas fa-plus" v-if="!isOpenCatInfoAndDmb"></i>
-                    <i class="icon fas fa-minus" v-else></i>
-                  </button>
+            <div class="row mb-1">
+              <div class="Block--12">
+                <p class="mb-0 font-size-15" style="font-weight: 600;">– 懷孕貓</p>
+                <div class="radio-box" v-for="(mother, key) in cat_mother_Status" :key="'mother' + key">
+                  <input type="radio" :id="'mother' + key" name="cat_Status" :value="mother" v-model="cat_Info.status">
+                  <label :for="'mother' + key">{{ mother }}</label>
                 </div>
               </div>
+            </div>
 
-              <div v-if="isOpenCatInfoAndDmb">
+          </section>
 
-                <div class="pt-1 pb-1"></div>
+          <div id="section_2"></div>
 
-                <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
-                  貓咪每日所需營養
-                </p>
+          <section class="step_2_section">
 
-                <div class="row form-row">
-                  <div class="Block--6">
-                    <div class="input-box group mb-1">
-                      <label for="">每日熱量</label>
-                      <input class="input-readonly" type="text" :value="cat_Info.daliyKcal" readonly>
-                      <span class="text-unit">kcal</span>
-                    </div>
+            <div class="step-text text-center mb-3">
+              <p>
+                <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP. 2</span><br>
+                挑選一種罐頭<br>
+                輸入營養成分和重量
+              </p>
+            </div>
+
+            <form action="">
+              <div class="row form-row">
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">罐頭重量</label>
+                    <input type="number" v-model="can_Nutrition.canWeight" placeholder="0">
+                    <span class="text-unit">g</span>
                   </div>
-                  <div class="Block--6">
-                    <div class="input-box group mb-1">
-                      <label for="">每日蛋白質</label>
-                      <input class="input-readonly" type="text"
-                        :value="`${cat_Info.daliyProtein.min} ~ ${cat_Info.daliyProtein.max}`" readonly>
-                      <span class="text-unit">g</span>
-                    </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">蛋白質</label>
+                    <input type="number" v-model="can_Nutrition.Protein_p" placeholder="0">
+                    <span class="text-unit">%</span>
                   </div>
-                  <div class="Block--6">
-                    <div class="input-box group mb-1">
-                      <label for="">每日脂肪</label>
-                      <input class="input-readonly" type="text"
-                        :value="`${cat_Info.daliyFat.min} ~ ${cat_Info.daliyFat.max}`" readonly>
-                      <span class="text-unit">g</span>
-                    </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">脂肪</label>
+                    <input type="number" v-model="can_Nutrition.Fat_p" placeholder="0">
+                    <span class="text-unit">%</span>
                   </div>
-                  <div class="Block--6">
-                    <div class="input-box group mb-1">
-                      <label for="">每日飲水量</label>
-                      <input class="input-readonly" type="text"
-                        :value="`${cat_Info.daliyWater.min} ~ ${cat_Info.daliyWater.max}`" readonly>
-                      <span class="text-unit">ml</span>
-                    </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">纖維</label>
+                    <input type="number" v-model="can_Nutrition.Fiber_p" placeholder="0">
+                    <span class="text-unit">%</span>
+                  </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">灰份</label>
+                    <input type="number" v-model="can_Nutrition.Ash_p" placeholder="0">
+                    <span class="text-unit">%</span>
+                  </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">水分</label>
+                    <input type="number" v-model="can_Nutrition.Water_p" placeholder="0">
+                    <span class="text-unit">%</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </section>
+
+          <div id="section_3"></div>
+
+          <section class="step_3_section">
+            <div class="step-text text-center mb-3">
+              <p>
+                <span class="font-size-25 letter-spacing-3" style="font-weight: 600;">STEP. 3</span><br>
+                挑選一種飼料<br>
+                輸入營養成分和熱量
+              </p>
+            </div>
+
+            <form action="">
+              <div class="row form-row">
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">飼料1公斤的熱量</label>
+                    <input type="number" v-model="feed_Nutrition.feed_1KG_Kcal" placeholder="0">
+                    <span class="text-unit">kcal</span>
+                  </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">蛋白質</label>
+                    <input type="number" v-model="feed_Nutrition.Protein_p" placeholder="0">
+                    <span class="text-unit">%</span>
+                  </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">脂肪</label>
+                    <input type="number" v-model="feed_Nutrition.Fat_p" placeholder="0">
+                    <span class="text-unit">%</span>
+                  </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">纖維</label>
+                    <input type="number" v-model="feed_Nutrition.Fiber_p" placeholder="0">
+                    <span class="text-unit">%</span>
+                  </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">灰份</label>
+                    <input type="number" v-model="feed_Nutrition.Ash_p" placeholder="0">
+                    <span class="text-unit">%</span>
+                  </div>
+                </div>
+                <div class="Block--6">
+                  <div class="input-box group mb-1">
+                    <label for="">水分</label>
+                    <input type="number" v-model="feed_Nutrition.Water_p" placeholder="0">
+                    <span class="text-unit">%</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </section>
+
+          <div id="section_4"></div>
+
+          <section class="step_4_section">
+
+            <div class="row mb-1">
+              <div class="Block--12">
+                <button class="btn-base" type="button" @click.prevent="mathAll">
+                  開始計算
+                  <i data-feather="check-circle" class="position-relative top-3 left-5"></i>
+                </button>
+              </div>
+            </div>
+
+            <div v-if="isOpenAllMath">
+
+              <div class="step_1_block">
+
+                <div class="row justify-content-center">
+                  <div class="Block--12">
+                    <button class="btn-base-outline mb-1 btn-toggle text-left" type="button"
+                      @click.prevent="openCatInfoAndDmb">
+                      貓咪每日所需 & 罐頭飼料乾物比
+                      <i class="icon fas fa-plus" v-if="!isOpenCatInfoAndDmb"></i>
+                      <i class="icon fas fa-minus" v-else></i>
+                    </button>
                   </div>
                 </div>
 
-                <div class="pt-1 pb-1"></div>
+                <div v-if="isOpenCatInfoAndDmb">
 
-                <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
-                  罐頭的乾物比
-                </p>
+                  <div class="pt-1 pb-1"></div>
 
-                <div class="result-block mb-3">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>蛋白質</th>
-                        <th>脂肪</th>
-                        <th>碳水化合物</th>
-                        <th>纖維</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="bg-light">
-                        <td>比例建議</td>
-                        <td>45%以上</td>
-                        <td>25~45%</td>
-                        <td>10%以下</td>
-                        <td>1~5%</td>
-                      </tr>
-                      <tr>
-                        <td>罐頭</td>
-                        <td :class="can_dmd.protein_colorClass">{{ can_dmd.dmb_protein }}%</td>
-                        <td :class="can_dmd.fat_colorClass">{{ can_dmd.dmb_fat }}%</td>
-                        <td :class="can_dmd.carbohydrate_colorClass">{{ can_dmd.dmb_carbohydrate }}%</td>
-                        <td :class="can_dmd.fiber_colorClass">{{ can_dmd.dmb_fiber }}%</td>
-                      </tr>
-                      <tr class="result">
-                        <td>計算結論</td>
-                        <td :class="can_dmd.protein_colorClass">{{ can_dmd.dmb_protein_result }}</td>
-                        <td :class="can_dmd.fat_colorClass">{{ can_dmd.dmb_fat_result }}</td>
-                        <td :class="can_dmd.carbohydrate_colorClass">{{ can_dmd.dmb_carbohydrate_result }}</td>
-                        <td :class="can_dmd.fiber_colorClass">{{ can_dmd.dmb_fiber_result }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                  <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
+                    貓咪每日所需營養
+                  </p>
 
-                <!-- 先不顯示
+                  <div class="row form-row">
+                    <div class="Block--6">
+                      <div class="input-box group mb-1">
+                        <label for="">每日熱量</label>
+                        <input class="input-readonly" type="text" :value="cat_Info.daliyKcal" readonly>
+                        <span class="text-unit">kcal</span>
+                      </div>
+                    </div>
+                    <div class="Block--6">
+                      <div class="input-box group mb-1">
+                        <label for="">每日蛋白質</label>
+                        <input class="input-readonly" type="text"
+                          :value="`${cat_Info.daliyProtein.min} ~ ${cat_Info.daliyProtein.max}`" readonly>
+                        <span class="text-unit">g</span>
+                      </div>
+                    </div>
+                    <div class="Block--6">
+                      <div class="input-box group mb-1">
+                        <label for="">每日脂肪</label>
+                        <input class="input-readonly" type="text"
+                          :value="`${cat_Info.daliyFat.min} ~ ${cat_Info.daliyFat.max}`" readonly>
+                        <span class="text-unit">g</span>
+                      </div>
+                    </div>
+                    <div class="Block--6">
+                      <div class="input-box group mb-1">
+                        <label for="">每日飲水量</label>
+                        <input class="input-readonly" type="text"
+                          :value="`${cat_Info.daliyWater.min} ~ ${cat_Info.daliyWater.max}`" readonly>
+                        <span class="text-unit">ml</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pt-1 pb-1"></div>
+
+                  <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
+                    罐頭的乾物比
+                  </p>
+
+                  <div class="result-block mb-3">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>蛋白質</th>
+                          <th>脂肪</th>
+                          <th>碳水化合物</th>
+                          <th>纖維</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="bg-light">
+                          <td>比例建議</td>
+                          <td>45%以上</td>
+                          <td>25~45%</td>
+                          <td>10%以下</td>
+                          <td>1~5%</td>
+                        </tr>
+                        <tr>
+                          <td>罐頭</td>
+                          <td :class="can_dmd.protein_colorClass">{{ can_dmd.dmb_protein }}%</td>
+                          <td :class="can_dmd.fat_colorClass">{{ can_dmd.dmb_fat }}%</td>
+                          <td :class="can_dmd.carbohydrate_colorClass">{{ can_dmd.dmb_carbohydrate }}%</td>
+                          <td :class="can_dmd.fiber_colorClass">{{ can_dmd.dmb_fiber }}%</td>
+                        </tr>
+                        <tr class="result">
+                          <td>計算結論</td>
+                          <td :class="can_dmd.protein_colorClass">{{ can_dmd.dmb_protein_result }}</td>
+                          <td :class="can_dmd.fat_colorClass">{{ can_dmd.dmb_fat_result }}</td>
+                          <td :class="can_dmd.carbohydrate_colorClass">{{ can_dmd.dmb_carbohydrate_result }}</td>
+                          <td :class="can_dmd.fiber_colorClass">{{ can_dmd.dmb_fiber_result }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- 先不顯示
               <p class="font-size-17 mb-1 text-center" style="font-weight: 600;">
                 一罐中含有的熱量和營養
               </p>
@@ -382,403 +385,409 @@
                 </div>
               </div> -->
 
-                <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
-                  飼料的乾物比
-                </p>
+                  <p class="font-size-17 mt-0 mb-1 text-center" style="font-weight: 600;">
+                    飼料的乾物比
+                  </p>
 
-                <div class="result-block">
+                  <div class="result-block">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>蛋白質</th>
+                          <th>脂肪</th>
+                          <th>碳水化合物</th>
+                          <th>纖維</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="bg-light">
+                          <td>比例建議</td>
+                          <td>45%以上</td>
+                          <td>25~45%</td>
+                          <td>25%以下</td>
+                          <td>1~5%</td>
+                        </tr>
+                        <tr>
+                          <td>飼料</td>
+                          <td :class="feed_dmd.protein_colorClass">{{ feed_dmd.dmb_protein }}%</td>
+                          <td :class="feed_dmd.fat_colorClass">{{ feed_dmd.dmb_fat }}%</td>
+                          <td :class="feed_dmd.carbohydrate_colorClass">{{ feed_dmd.dmb_carbohydrate }}%</td>
+                          <td :class="feed_dmd.fiber_colorClass">{{ feed_dmd.dmb_fiber }}%</td>
+                        </tr>
+                        <tr class="result">
+                          <td>計算結論</td>
+                          <td :class="feed_dmd.protein_colorClass">{{ feed_dmd.dmb_protein_result }}</td>
+                          <td :class="feed_dmd.fat_colorClass">{{ feed_dmd.dmb_fat_result }}</td>
+                          <td :class="feed_dmd.carbohydrate_colorClass">{{ feed_dmd.dmb_carbohydrate_result }}</td>
+                          <td :class="feed_dmd.fiber_colorClass">{{ feed_dmd.dmb_fiber_result }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="pt-1 pb-2"></div>
+
+                </div>
+
+              </div>
+
+              <div class="row justify-content-center">
+                <div class="Block--12">
+                  <button class="btn-base-outline mb-1 btn-toggle text-left" type="button"
+                    @click.prevent="openAllWetFood_result">
+                    全濕食配方
+                    <i class="icon fas fa-plus" v-if="!isOpenAllWetFood"></i>
+                    <i class="icon fas fa-minus" v-else></i>
+                  </button>
+                </div>
+              </div>
+
+              <div v-show="isOpenAllWetFood">
+
+                <p class="text-center">
+                  每日需吃<span class="px-1 font-size-18"
+                    style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
+                    allWetFood_Info.items }}</span>顆罐頭，<br>才能達到貓咪每日所需的熱量。
+                </p>
+                <div class="result-block mb-2">
                   <table>
                     <thead>
                       <tr>
                         <th></th>
                         <th>蛋白質</th>
                         <th>脂肪</th>
-                        <th>碳水化合物</th>
-                        <th>纖維</th>
+                        <th>水分</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr class="bg-light">
-                        <td>比例建議</td>
-                        <td>45%以上</td>
-                        <td>25~45%</td>
-                        <td>25%以下</td>
-                        <td>1~5%</td>
+                        <td>每日建議</td>
+                        <td>{{ `${cat_Info.daliyProtein.min} ~ ${cat_Info.daliyProtein.max}g` }}</td>
+                        <td>{{ `${cat_Info.daliyFat.min} ~ ${cat_Info.daliyFat.max}g` }}</td>
+                        <td>{{ `${cat_Info.daliyWater.min} ~ ${cat_Info.daliyWater.max}ml` }}</td>
                       </tr>
                       <tr>
-                        <td>飼料</td>
-                        <td :class="feed_dmd.protein_colorClass">{{ feed_dmd.dmb_protein }}%</td>
-                        <td :class="feed_dmd.fat_colorClass">{{ feed_dmd.dmb_fat }}%</td>
-                        <td :class="feed_dmd.carbohydrate_colorClass">{{ feed_dmd.dmb_carbohydrate }}%</td>
-                        <td :class="feed_dmd.fiber_colorClass">{{ feed_dmd.dmb_fiber }}%</td>
+                        <td>{{ allWetFood_Info.items }}顆罐頭</td>
+                        <td :class="allWetFood_Info.Protein.colorClass">{{ allWetFood_Info.Protein.number }}g</td>
+                        <td :class="allWetFood_Info.Fat.colorClass">{{ allWetFood_Info.Fat.number }}g</td>
+                        <td :class="allWetFood_Info.Water.colorClass">{{ allWetFood_Info.Water.number }}ml</td>
                       </tr>
                       <tr class="result">
                         <td>計算結論</td>
-                        <td :class="feed_dmd.protein_colorClass">{{ feed_dmd.dmb_protein_result }}</td>
-                        <td :class="feed_dmd.fat_colorClass">{{ feed_dmd.dmb_fat_result }}</td>
-                        <td :class="feed_dmd.carbohydrate_colorClass">{{ feed_dmd.dmb_carbohydrate_result }}</td>
-                        <td :class="feed_dmd.fiber_colorClass">{{ feed_dmd.dmb_fiber_result }}</td>
+                        <td :class="allWetFood_Info.Protein.colorClass">{{ allWetFood_Info.Protein.result }}</td>
+                        <td :class="allWetFood_Info.Fat.colorClass">{{ allWetFood_Info.Fat.result }}</td>
+                        <td :class="allWetFood_Info.Water.colorClass">{{ allWetFood_Info.Water.result }}</td>
                       </tr>
                     </tbody>
                   </table>
+                </div>
+
+                <div class="text-center">
+                  <button type="button" class="btn-blue-outline-2 btn-small" @click.prevent="addToSaveList('allWet')">
+                    儲存配方
+                    <i class="fas fa-save"></i>
+                  </button>
+                </div>
+
+                <div class="pt-1 pb-1"></div>
+
+                <div class="warning-text blue" v-if="allWetFood_Info.Protein.isLess">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的蛋白質攝取不足，不建議作為主食！
+                </div>
+                <div class="warning-text blue" v-if="allWetFood_Info.Fat.isLess">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的脂肪攝取不足，不建議作為主食！
+                </div>
+                <div class="warning-text blue" v-if="allWetFood_Info.Water.isLess">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的水分攝取不足，需另外補充！
+                </div>
+                <div class="warning-text red" v-if="allWetFood_Info.Protein.isOver">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的蛋白質攝取過高，不建議作為主食！
+                </div>
+                <div class="warning-text red" v-if="allWetFood_Info.Fat.isOver">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的脂肪攝取過高，不建議作為主食！
+                </div>
+                <div class="warning-text red" v-if="allWetFood_Info.Water.isOver">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的水分攝取過高，請注意！
                 </div>
 
                 <div class="pt-1 pb-2"></div>
 
               </div>
 
-            </div>
-
-            <div class="row justify-content-center">
-              <div class="Block--12">
-                <button class="btn-base-outline mb-1 btn-toggle text-left" type="button"
-                  @click.prevent="openAllWetFood_result">
-                  全濕食配方
-                  <i class="icon fas fa-plus" v-if="!isOpenAllWetFood"></i>
-                  <i class="icon fas fa-minus" v-else></i>
-                </button>
-              </div>
-            </div>
-
-            <div v-show="isOpenAllWetFood">
-
-              <p class="text-center">
-                每日需吃<span class="px-1 font-size-18"
-                  style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                  allWetFood_Info.items }}</span>顆罐頭，<br>才能達到貓咪每日所需的熱量。
-              </p>
-              <div class="result-block mb-2">
-                <table>
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>蛋白質</th>
-                      <th>脂肪</th>
-                      <th>水分</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="bg-light">
-                      <td>每日建議</td>
-                      <td>{{ `${cat_Info.daliyProtein.min} ~ ${cat_Info.daliyProtein.max}g` }}</td>
-                      <td>{{ `${cat_Info.daliyFat.min} ~ ${cat_Info.daliyFat.max}g` }}</td>
-                      <td>{{ `${cat_Info.daliyWater.min} ~ ${cat_Info.daliyWater.max}ml` }}</td>
-                    </tr>
-                    <tr>
-                      <td>{{ allWetFood_Info.items }}顆罐頭</td>
-                      <td :class="allWetFood_Info.Protein.colorClass">{{ allWetFood_Info.Protein.number }}g</td>
-                      <td :class="allWetFood_Info.Fat.colorClass">{{ allWetFood_Info.Fat.number }}g</td>
-                      <td :class="allWetFood_Info.Water.colorClass">{{ allWetFood_Info.Water.number }}ml</td>
-                    </tr>
-                    <tr class="result">
-                      <td>計算結論</td>
-                      <td :class="allWetFood_Info.Protein.colorClass">{{ allWetFood_Info.Protein.result }}</td>
-                      <td :class="allWetFood_Info.Fat.colorClass">{{ allWetFood_Info.Fat.result }}</td>
-                      <td :class="allWetFood_Info.Water.colorClass">{{ allWetFood_Info.Water.result }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="text-center">
-                <button type="button" class="btn-blue-outline-2 btn-small" @click.prevent="addToSaveList('allWet')">
-                  儲存配方
-                  <i class="fas fa-save"></i>
-                </button>
-              </div>
-
-              <div class="pt-1 pb-1"></div>
-
-              <div class="warning-text blue" v-if="allWetFood_Info.Protein.isLess">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的蛋白質攝取不足，不建議作為主食！
-              </div>
-              <div class="warning-text blue" v-if="allWetFood_Info.Fat.isLess">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的脂肪攝取不足，不建議作為主食！
-              </div>
-              <div class="warning-text blue" v-if="allWetFood_Info.Water.isLess">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的水分攝取不足，需另外補充！
-              </div>
-              <div class="warning-text red" v-if="allWetFood_Info.Protein.isOver">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的蛋白質攝取過高，不建議作為主食！
-              </div>
-              <div class="warning-text red" v-if="allWetFood_Info.Fat.isOver">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的脂肪攝取過高，不建議作為主食！
-              </div>
-              <div class="warning-text red" v-if="allWetFood_Info.Water.isOver">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的水分攝取過高，請注意！
-              </div>
-
-              <div class="pt-1 pb-2"></div>
-
-            </div>
-
-            <div class="row justify-content-center">
-              <div class="Block--12">
-                <button class="btn-base-outline mb-1 btn-toggle text-left" type="button"
-                  @click.prevent="openHalfWetFood_result">
-                  半濕食配方
-                  <i class="icon fas fa-plus" v-if="!isOpenHalfWetFood"></i>
-                  <i class="icon fas fa-minus" v-else></i>
-                </button>
-              </div>
-            </div>
-
-            <div v-show="isOpenHalfWetFood">
-
-              <div class="pt-1 pb-1"></div>
-
-              <p class="font-size-17 mt-0 mb-1" style="font-weight: 600;">
-                勾選每日分配(擇一)：
-              </p>
-
-              <div class="row mb-1">
+              <div class="row justify-content-center">
                 <div class="Block--12">
-                  <div class="radio-box" v-for="(canDaliyNumber, key) in halfWetFood_Info.canDaliy_choose"
-                    :key="'canDaliyNumber' + key">
-                    <input type="radio" :id="'canDaliyNumber' + key" name="halfWetFood_canDaliy" :value="canDaliyNumber"
-                      v-model="halfWetFood_Info.canDaliyNumber" @click="math_feed_g(canDaliyNumber)">
-                    <label :for="'canDaliyNumber' + key">罐頭 {{ canDaliyNumber }} 個 + 飼料</label>
-                  </div>
+                  <button class="btn-base-outline mb-1 btn-toggle text-left" type="button"
+                    @click.prevent="openHalfWetFood_result">
+                    半濕食配方
+                    <i class="icon fas fa-plus" v-if="!isOpenHalfWetFood"></i>
+                    <i class="icon fas fa-minus" v-else></i>
+                  </button>
                 </div>
               </div>
 
-              <div class="pt-1 pb-1"></div>
+              <div v-show="isOpenHalfWetFood">
 
-              <p class="text-center">
-                每日需吃
-                <span class="font-size-18"
-                  style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                  halfWetFood_Info.canDaliyNumber }}</span>個罐頭 + <span class="font-size-18"
-                  style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                  halfWetFood_Info.feed_g
-                  }}</span> g 飼料<br>才能達到貓咪每日所需的熱量。
-              </p>
-              <div class="result-block mb-2">
-                <table>
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>蛋白質</th>
-                      <th>脂肪</th>
-                      <th>水分</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="bg-light">
-                      <td>每日建議</td>
-                      <td>{{ `${cat_Info.daliyProtein.min} ~ ${cat_Info.daliyProtein.max}g` }}</td>
-                      <td>{{ `${cat_Info.daliyFat.min} ~ ${cat_Info.daliyFat.max}g` }}</td>
-                      <td>{{ `${cat_Info.daliyWater.min} ~ ${cat_Info.daliyWater.max}ml` }}</td>
-                    </tr>
-                    <tr>
-                      <td>罐頭 + 飼料</td>
-                      <td :class="halfWetFood_Info.Protein.colorClass">{{ halfWetFood_Info.Protein.number }}g</td>
-                      <td :class="halfWetFood_Info.Fat.colorClass">{{ halfWetFood_Info.Fat.number }}g</td>
-                      <td :class="halfWetFood_Info.Water.colorClass">{{ halfWetFood_Info.Water.number }}ml</td>
-                    </tr>
-                    <tr class="result">
-                      <td>計算結論</td>
-                      <td :class="halfWetFood_Info.Protein.colorClass">{{ halfWetFood_Info.Protein.result }}</td>
-                      <td :class="halfWetFood_Info.Fat.colorClass">{{ halfWetFood_Info.Fat.result }}</td>
-                      <td :class="halfWetFood_Info.Water.colorClass">{{ halfWetFood_Info.Water.result }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="pt-1 pb-1"></div>
+
+                <p class="font-size-17 mt-0 mb-1" style="font-weight: 600;">
+                  勾選每日分配(擇一)：
+                </p>
+
+                <div class="row mb-1">
+                  <div class="Block--12">
+                    <div class="radio-box" v-for="(canDaliyNumber, key) in halfWetFood_Info.canDaliy_choose"
+                      :key="'canDaliyNumber' + key">
+                      <input type="radio" :id="'canDaliyNumber' + key" name="halfWetFood_canDaliy"
+                        :value="canDaliyNumber" v-model="halfWetFood_Info.canDaliyNumber"
+                        @click="math_feed_g(canDaliyNumber)">
+                      <label :for="'canDaliyNumber' + key">罐頭 {{ canDaliyNumber }} 個 + 飼料</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-1 pb-1"></div>
+
+                <p class="text-center">
+                  每日需吃
+                  <span class="font-size-18"
+                    style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
+                    halfWetFood_Info.canDaliyNumber }}</span>個罐頭 + <span class="font-size-18"
+                    style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
+                    halfWetFood_Info.feed_g
+                    }}</span> g 飼料<br>才能達到貓咪每日所需的熱量。
+                </p>
+                <div class="result-block mb-2">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>蛋白質</th>
+                        <th>脂肪</th>
+                        <th>水分</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="bg-light">
+                        <td>每日建議</td>
+                        <td>{{ `${cat_Info.daliyProtein.min} ~ ${cat_Info.daliyProtein.max}g` }}</td>
+                        <td>{{ `${cat_Info.daliyFat.min} ~ ${cat_Info.daliyFat.max}g` }}</td>
+                        <td>{{ `${cat_Info.daliyWater.min} ~ ${cat_Info.daliyWater.max}ml` }}</td>
+                      </tr>
+                      <tr>
+                        <td>罐頭 + 飼料</td>
+                        <td :class="halfWetFood_Info.Protein.colorClass">{{ halfWetFood_Info.Protein.number }}g</td>
+                        <td :class="halfWetFood_Info.Fat.colorClass">{{ halfWetFood_Info.Fat.number }}g</td>
+                        <td :class="halfWetFood_Info.Water.colorClass">{{ halfWetFood_Info.Water.number }}ml</td>
+                      </tr>
+                      <tr class="result">
+                        <td>計算結論</td>
+                        <td :class="halfWetFood_Info.Protein.colorClass">{{ halfWetFood_Info.Protein.result }}</td>
+                        <td :class="halfWetFood_Info.Fat.colorClass">{{ halfWetFood_Info.Fat.result }}</td>
+                        <td :class="halfWetFood_Info.Water.colorClass">{{ halfWetFood_Info.Water.result }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="text-center">
+                  <button type="button" class="btn-blue-outline-2 btn-small" @click.prevent="addToSaveList('halfWet')">
+                    儲存配方
+                    <i class="fas fa-save"></i>
+                  </button>
+                </div>
+
+                <div class="pt-1 pb-1"></div>
+
+                <div class="warning-text blue" v-if="halfWetFood_Info.Protein.isLess">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的蛋白質攝取不足，不建議作為主食！
+                </div>
+                <div class="warning-text blue" v-if="halfWetFood_Info.Fat.isLess">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的脂肪攝取不足，不建議作為主食！
+                </div>
+                <div class="warning-text blue" v-if="halfWetFood_Info.Water.isLess">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的水分攝取不足，需另外補充！
+                </div>
+                <div class="warning-text red" v-if="halfWetFood_Info.Protein.isOver">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的蛋白質攝取過高，不建議作為主食！
+                </div>
+                <div class="warning-text red" v-if="halfWetFood_Info.Fat.isOver">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的脂肪攝取過高，不建議作為主食！
+                </div>
+                <div class="warning-text red" v-if="halfWetFood_Info.Water.isOver">
+                  <i class="icon fas fa-exclamation-triangle"></i>
+                  每日的水分攝取過高，請注意！
+                </div>
+
+                <div class="pt-1 pb-2"></div>
+
               </div>
 
-              <div class="text-center">
-                <button type="button" class="btn-blue-outline-2 btn-small" @click.prevent="addToSaveList('halfWet')">
-                  儲存配方
-                  <i class="fas fa-save"></i>
+              <div class="pt-1"></div>
+
+            </div>
+
+            <div class="row justify-content-center">
+              <div class="Block--12">
+                <button class="btn-no" type="button" @click="reset">
+                  重新計算
+                  <i data-feather="refresh-ccw" class="position-relative top-3 left-5"></i>
                 </button>
               </div>
-
-              <div class="pt-1 pb-1"></div>
-
-              <div class="warning-text blue" v-if="halfWetFood_Info.Protein.isLess">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的蛋白質攝取不足，不建議作為主食！
-              </div>
-              <div class="warning-text blue" v-if="halfWetFood_Info.Fat.isLess">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的脂肪攝取不足，不建議作為主食！
-              </div>
-              <div class="warning-text blue" v-if="halfWetFood_Info.Water.isLess">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的水分攝取不足，需另外補充！
-              </div>
-              <div class="warning-text red" v-if="halfWetFood_Info.Protein.isOver">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的蛋白質攝取過高，不建議作為主食！
-              </div>
-              <div class="warning-text red" v-if="halfWetFood_Info.Fat.isOver">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的脂肪攝取過高，不建議作為主食！
-              </div>
-              <div class="warning-text red" v-if="halfWetFood_Info.Water.isOver">
-                <i class="icon fas fa-exclamation-triangle"></i>
-                每日的水分攝取過高，請注意！
-              </div>
-
-              <div class="pt-1 pb-2"></div>
-
             </div>
 
-            <div class="pt-1"></div>
+          </section>
 
-          </div>
+          <div class="save-list-block" :class="{'isOpen' : isOpenSaveBlock}">
+            <p class="font-size-20 m-0" style="font-weight: 600;"> 儲存的配方清單 </p>
 
-          <div class="row justify-content-center">
-            <div class="Block--12">
-              <button class="btn-no" type="button" @click="reset">
-                重新計算
-                <i data-feather="refresh-ccw" class="position-relative top-3 left-5"></i>
-              </button>
+            <button type="button" class="btn-close" @click="change('isOpenSaveBlock')">
+              <span class="icon"><i data-feather="x"></i></span></button>
+
+            <div class="pt-1 pb-1"></div>
+
+            <div class="save-list">
+              <ul>
+                <li v-for="(item, key ) in localData" @key="key">
+
+                  <!-- 利用按鈕的參數，判斷是否為全濕食 -->
+                  <div v-if="item.which_Button === 'allWet'">
+                    <p class="text-center">
+                      每日需吃<span class="px-1 font-size-18"
+                        style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
+                        item.allWetFood_Info_items }}</span>顆罐頭，<br>才能達到貓咪每日所需的熱量。
+                    </p>
+                    <div class="result-block mb-1">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>蛋白質</th>
+                            <th>脂肪</th>
+                            <th>水分</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-light">
+                            <td>每日建議</td>
+                            <td>{{ `${item.cat_Info_daliyProtein_min} ~ ${item.cat_Info_daliyProtein_max}g` }}</td>
+                            <td>{{ `${item.cat_Info_daliyFat_min} ~ ${item.cat_Info_daliyFat_max}g` }}</td>
+                            <td>{{ `${item.cat_Info_daliyWater_min} ~ ${item.cat_Info_daliyWater_max}ml` }}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ item.allWetFood_Info_items }}顆罐頭</td>
+                            <td>{{ item.allWetFood_Info_Protein_number }}g</td>
+                            <td>{{ item.allWetFood_Info_Fat_number }}g</td>
+                            <td>{{ item.allWetFood_Info_Water_number }}ml</td>
+                          </tr>
+                          <tr class="result">
+                            <td>計算結論</td>
+                            <td>{{ item.allWetFood_Info_Protein_result }}</td>
+                            <td>{{ item.allWetFood_Info_Fat_result }}</td>
+                            <td>{{ item.allWetFood_Info_Water_result }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- 利用按鈕的參數，判斷是否為半濕食 -->
+                  <div v-if="item.which_Button === 'halfWet'">
+                    <p class="text-center">
+                      每日需吃
+                      <span class="font-size-18"
+                        style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
+                        item.halfWetFood_Info_canDaliyNumber }}</span>個罐頭 + <span class="font-size-18"
+                        style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
+                        item.halfWetFood_Info_feed_g
+                        }}</span> g 飼料<br>才能達到貓咪每日所需的熱量。
+                    </p>
+                    <div class="result-block mb-2">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>蛋白質</th>
+                            <th>脂肪</th>
+                            <th>水分</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-light">
+                            <td>每日建議</td>
+                            <td>{{ `${item.cat_Info_daliyProtein_min} ~ ${item.cat_Info_daliyProtein_max}g` }}</td>
+                            <td>{{ `${item.cat_Info_daliyFat_min} ~ ${item.cat_Info_daliyFat_max}g` }}</td>
+                            <td>{{ `${item.cat_Info_daliyWater_min} ~ ${item.cat_Info_daliyWater_max}ml` }}</td>
+                          </tr>
+                          <tr>
+                            <td>罐頭 + 飼料</td>
+                            <td>{{ item.halfWetFood_Info_Protein_number }}g</td>
+                            <td>{{ item.halfWetFood_Info_Fat_number }}g</td>
+                            <td>{{ item.halfWetFood_Info_Water_number }}ml</td>
+                          </tr>
+                          <tr class="result">
+                            <td>計算結論</td>
+                            <td>{{ item.halfWetFood_Info_Protein_result }}</td>
+                            <td>{{ item.halfWetFood_Info_Fat_result }}</td>
+                            <td>{{ item.halfWetFood_Info_Water_result }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="delete-btn">
+                    <button type="button" class="btn" @click.prevent="spliceSaveList(key)">
+                      <i class="fas fa-trash-alt"></i>
+                      刪除
+                    </button>
+                  </div>
+
+                  <div class="note-block" style="border-bottom: 1px solid #009688;">
+                    <p class="m-0">
+                      <span class="label" style="color:#009688;">
+                        備註：
+                      </span>
+                      {{ item.note }}
+                    </p>
+                    <!-- 編輯用的，可是還不會改單獨的文字 
+                    <button type="button" class="btn-edit" @click.prevent="openEditNote(item)">
+                    <i class="fas fa-pencil-alt"></i>
+                  </button> -->
+                  </div>
+
+                  <div class="input-box">
+                    <input type="text" placeholder="修改備註.." v-model="saveListNoteTxt" @keyUp.enter="addToNote(key)">
+                    <div class="input-btn">
+                      <button type="button" class="btn" @click.prevent="addToNote(key)">
+                        OK
+                      </button>
+                    </div>
+                  </div>
+
+                </li>
+              </ul>
             </div>
+
           </div>
 
         </section>
 
-        <div class="save-list-block" :class="{'isOpen' : isOpenSaveBlock}">
-          <p class="font-size-20 m-0" style="font-weight: 600;"> 儲存的配方清單 </p>
+        <button type="button" class="laptop_saveListBtn d-none d-md-block" @click="change('isOpenSaveBlock')">配方清單</button>
 
-          <button type="button" class="btn-close" @click="change('isOpenSaveBlock')">
-            <span class="icon"><i data-feather="x"></i></span></button>
+      </div>
 
-          <div class="pt-1 pb-1"></div>
-
-          <div class="save-list">
-            <ul>
-              <li v-for="(item, key ) in localData" @key="key">
-
-                <!-- 利用按鈕的參數，判斷是否為全濕食 -->
-                <div v-if="item.which_Button === 'allWet'">
-                  <p class="text-center">
-                    每日需吃<span class="px-1 font-size-18"
-                      style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                      item.allWetFood_Info_items }}</span>顆罐頭，<br>才能達到貓咪每日所需的熱量。
-                  </p>
-                  <div class="result-block mb-1">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>蛋白質</th>
-                          <th>脂肪</th>
-                          <th>水分</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="bg-light">
-                          <td>每日建議</td>
-                          <td>{{ `${item.cat_Info_daliyProtein_min} ~ ${item.cat_Info_daliyProtein_max}g` }}</td>
-                          <td>{{ `${item.cat_Info_daliyFat_min} ~ ${item.cat_Info_daliyFat_max}g` }}</td>
-                          <td>{{ `${item.cat_Info_daliyWater_min} ~ ${item.cat_Info_daliyWater_max}ml` }}</td>
-                        </tr>
-                        <tr>
-                          <td>{{ item.allWetFood_Info_items }}顆罐頭</td>
-                          <td>{{ item.allWetFood_Info_Protein_number }}g</td>
-                          <td>{{ item.allWetFood_Info_Fat_number }}g</td>
-                          <td>{{ item.allWetFood_Info_Water_number }}ml</td>
-                        </tr>
-                        <tr class="result">
-                          <td>計算結論</td>
-                          <td>{{ item.allWetFood_Info_Protein_result }}</td>
-                          <td>{{ item.allWetFood_Info_Fat_result }}</td>
-                          <td>{{ item.allWetFood_Info_Water_result }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <!-- 利用按鈕的參數，判斷是否為半濕食 -->
-                <div v-if="item.which_Button === 'halfWet'">
-                  <p class="text-center">
-                    每日需吃
-                    <span class="font-size-18"
-                      style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                      item.halfWetFood_Info_canDaliyNumber }}</span>個罐頭 + <span class="font-size-18"
-                      style="font-weight: 600;border-bottom: 2px solid #ff5700; color:#ff5700; margin: 0 7px;">{{
-                      item.halfWetFood_Info_feed_g
-                      }}</span> g 飼料<br>才能達到貓咪每日所需的熱量。
-                  </p>
-                  <div class="result-block mb-2">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>蛋白質</th>
-                          <th>脂肪</th>
-                          <th>水分</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="bg-light">
-                          <td>每日建議</td>
-                          <td>{{ `${item.cat_Info_daliyProtein_min} ~ ${item.cat_Info_daliyProtein_max}g` }}</td>
-                          <td>{{ `${item.cat_Info_daliyFat_min} ~ ${item.cat_Info_daliyFat_max}g` }}</td>
-                          <td>{{ `${item.cat_Info_daliyWater_min} ~ ${item.cat_Info_daliyWater_max}ml` }}</td>
-                        </tr>
-                        <tr>
-                          <td>罐頭 + 飼料</td>
-                          <td>{{ item.halfWetFood_Info_Protein_number }}g</td>
-                          <td>{{ item.halfWetFood_Info_Fat_number }}g</td>
-                          <td>{{ item.halfWetFood_Info_Water_number }}ml</td>
-                        </tr>
-                        <tr class="result">
-                          <td>計算結論</td>
-                          <td>{{ item.halfWetFood_Info_Protein_result }}</td>
-                          <td>{{ item.halfWetFood_Info_Fat_result }}</td>
-                          <td>{{ item.halfWetFood_Info_Water_result }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <div class="delete-btn">
-                  <button type="button" class="btn" @click.prevent="spliceSaveList(key)">
-                    <i class="fas fa-trash-alt"></i>
-                    刪除
-                  </button>
-                </div>
-
-                <div class="note-block" style="border-bottom: 1px solid #009688;">
-                  <p class="m-0">
-                    <span class="label" style="color:#009688;">
-                      備註：
-                    </span>
-                    {{ item.note }}
-                  </p>
-                  <!-- 編輯用的，可是還不會改單獨的文字 
-                    <button type="button" class="btn-edit" @click.prevent="openEditNote(item)">
-                    <i class="fas fa-pencil-alt"></i>
-                  </button> -->
-                </div>
-
-                <div class="input-box">
-                  <input type="text" placeholder="修改備註.." v-model="saveListNoteTxt" @keyUp.enter="addToNote(key)">
-                  <div class="input-btn">
-                    <button type="button" class="btn" @click.prevent="addToNote(key)">
-                      OK
-                    </button>
-                  </div>
-                </div>
-
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-      </section>
     </div>
   </div>
 
