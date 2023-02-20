@@ -1,4 +1,4 @@
-# 貓食配方所 Vue3.js簡易版
+## 貓食配方所 Vue3.js簡易版
 
 網站：<a href="https://abby-tsai.github.io/cat-wet-half-tool/">Vue3.js 簡易版</a>
 
